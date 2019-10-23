@@ -31,5 +31,7 @@ woodMetrics = function(input = NULL)
   wd_tbl = ungroup(wd_tbl)
   wd_tbl = distinct(wd_tbl, parentGlobalId, .keep_all = TRUE)
   wd_tbl = select(wd_tbl, parentGlobalId, lwdVT, lwdAT, lwdPieces, lwdWet, lwdChnFrm, lwdBallast)
+  
+  return(wd_tbl)
 }  
 

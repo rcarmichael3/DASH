@@ -18,4 +18,6 @@ jamMetrics = function(input = NULL)
   jam_tbl = select(jam_tbl, lengthM, widthM, heightM, estimatedNumberOfPieces, parentGlobalId)
   jam_tbl = mutate(jam_tbl, jamVolume = lengthM * widthM * heightM)
   jam_tbl = select(jam_tbl, estimatedNumberOfPieces, jamVolume, parentGlobalId)
+  
+  return(jam_tbl)
 }  

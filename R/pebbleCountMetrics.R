@@ -25,4 +25,6 @@ pebbleCountMetrics = function(input = NULL)
                    d84 = stats::quantile(sizeMM, probs = 0.84))
   pbl_tbl = distinct(pbl_tbl, d50, d84, .keep_all = TRUE)
   pbl_tbl = select(pbl_tbl, d50, d84)
+  
+  return(pbl_tbl)
 }  

@@ -27,4 +27,6 @@ undercutMetrics = function(input = NULL)
   udcut_tbl = ungroup(udcut_tbl)
   udcut_tbl = distinct(udcut_tbl, parentGlobalId, .keep_all = TRUE)
   udcut_tbl = select(udcut_tbl, parentGlobalId, undercutAT, undercutLength, nUndercuts)
+  
+  return(udcut_tbl)
 }  
