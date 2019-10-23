@@ -1,0 +1,4 @@
+ObjectID,GlobalID,Large Wood Number,Length (m),Diameter (m),LWD Information,reserved_name_for_field_list_labels_22,Wet?,Channel Forming?,Ballasted?,ParentGlobalID,CreationDate,Creator,EditDate,Editor
+121,8ec31bfc-0e00-4d19-9319-a8c607e15405,1,6.5,0.4,,Y,N,N,N,4157886d-171f-4fcf-9935-ae14b2f99bdb,9/10/2018 14:41,richie@qcinc.org,9/10/2018 14:41,richie@qcinc.org
+122,ee1577dd-06f5-4f79-80e8-16336a24fbb0,1,5.5,0.4,,Y,Y,Y,Y,c211c019-844b-437a-8a13-351e4a48e71e,9/10/2018 14:41,richie@qcinc.org,9/10/2018 14:41,richie@qcinc.org
+123,b780e51e-66ad-4d69-a8a1-729dd9158ddf,1,2.3,0.17,,Y,Y,N,N,fabe58f0-f3fb-49a5-8569-525963d08b4b,9/10/2018 14:41,richie@qcinc.org,9/10/2018 14:41,richie@qcinc.org

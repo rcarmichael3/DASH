@@ -1,0 +1,4 @@
+﻿ObjectID,GlobalID,Undercut Number,Location,Length (m),Width 25% (m),Width 50% (m),Width 75% (m),ParentGlobalID,CreationDate,Creator,EditDate,Editor
+1,beeb68ae-43b6-4577-8faa-d17eb6fda319,1,Left_Bank,1.6,0.68,0.97,1.16,6f94d597-3125-4f07-b0a0-89ac521e53b3,10/7/2019 9:40:00 PM,richie@qcinc.org,10/7/2019 9:40:00 PM,richie@qcinc.org
+2,e21045d1-afdc-467b-80ae-f6edfb5076a0,1,Right_Bank,4.5,0.7,0.7,0.63,457b3aad-b780-4d92-a180-c4977ba92880,10/7/2019 9:40:00 PM,richie@qcinc.org,10/7/2019 9:40:00 PM,richie@qcinc.org
+3,850321c8-1fc4-4199-8ce0-853e2969eb43,1,Right_Bank,3,0.96,1.15,0.8,f52a3a17-3c7a-45f7-b865-62d6dc0b6e1d,10/7/2019 9:40:00 PM,richie@qcinc.org,10/7/2019 9:40:00 PM,richie@qcinc.org
