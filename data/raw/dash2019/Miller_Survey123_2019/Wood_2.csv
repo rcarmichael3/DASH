@@ -1,0 +1,10 @@
+﻿ObjectID,GlobalID,Large Wood Number,Length (m),Diameter (m),Wet?,Channel Forming?,Ballasted?,ParentGlobalID,CreationDate,Creator,EditDate,Editor
+1,964cab6a-e2e4-4eb0-95c2-09f88e424c49,1,4.5,.3,No,No,No,7b68253a-2bb5-4515-a701-a7101ef740ed,10/7/2019 9:39:25 PM,richie@qcinc.org,10/7/2019 9:39:25 PM,richie@qcinc.org
+2,e293450b-a63c-4ca3-9f74-1b9358189871,1,7,.37,Yes,No,Yes,c82c3264-9335-44bf-a752-8b6122611da3,10/7/2019 9:39:25 PM,richie@qcinc.org,10/7/2019 9:39:25 PM,richie@qcinc.org
+3,00af8753-1a7e-4e27-a140-5c491b6e1de5,1,8,.2,Yes,Yes,No,420ca5b5-3f32-4d4d-ae20-247200957e86,10/7/2019 9:39:25 PM,richie@qcinc.org,10/7/2019 9:39:25 PM,richie@qcinc.org
+4,d2015f95-5906-412e-b3ca-ebfd40dde647,1,2.75,.2,No,No,No,7818ba71-dd8a-4697-85bc-cfa570e84c4e,10/7/2019 9:39:25 PM,richie@qcinc.org,10/7/2019 9:39:25 PM,richie@qcinc.org
+5,cd750916-d66d-4d11-badc-74bf6040beed,1,7,.35,Yes,Yes,Yes,6e020bd9-f91b-4110-8e8c-6572b77f0111,10/7/2019 9:39:25 PM,richie@qcinc.org,10/7/2019 9:39:25 PM,richie@qcinc.org
+6,95c1d2e1-3c7c-45da-888f-0de45a53d6a3,1,2.5,.45,Yes,Yes,No,3d67cb1a-a4a0-45d6-aa6a-7fdac2b82b85,10/7/2019 9:39:25 PM,richie@qcinc.org,10/7/2019 9:39:25 PM,richie@qcinc.org
+7,9973c913-9b99-49da-aabc-4d87c86cc638,2,1.75,.42,Yes,No,No,3d67cb1a-a4a0-45d6-aa6a-7fdac2b82b85,10/7/2019 9:39:25 PM,richie@qcinc.org,10/7/2019 9:39:25 PM,richie@qcinc.org
+8,744b2f38-7341-462f-9dd7-593ddab4e2ec,1,12,.52,No,No,Yes,e709846f-8572-45e6-a76c-f72195cd9d2d,10/7/2019 9:39:25 PM,richie@qcinc.org,10/7/2019 9:39:25 PM,richie@qcinc.org
+9,03ea44be-3a68-48bc-8990-4a0356d66f57,1,4,.25,Yes,No,Yes,a5923f83-2803-45eb-9e38-23e68fbcaf6f,10/7/2019 9:39:25 PM,richie@qcinc.org,10/7/2019 9:39:25 PM,richie@qcinc.org

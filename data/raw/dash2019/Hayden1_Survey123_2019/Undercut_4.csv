@@ -1,0 +1,25 @@
+﻿ObjectID,GlobalID,Undercut Number,Location,Length (m),Width 25% (m),Width 50% (m),Width 75% (m),ParentGlobalID,CreationDate,Creator,EditDate,Editor
+1,bdcf34ef-7483-413a-aaff-0a59ddfac3d0,1,Left_Bank,30,0.83,1.05,0.95,28d76544-64a0-47ce-833e-25158ed51ee1,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+2,08742b33-11de-4ed8-b403-08a282b739e3,1,Left_Bank,5.5,0.43,0.45,0.43,2aca1813-186a-4131-add1-2763e37abbe4,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+3,b2496b35-a194-4162-90f8-19e43531cf06,1,Right_Bank,6,0.7,1.45,1.15,37c67bfb-d40e-476c-8ffc-3c007930f8de,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+4,5eb41efc-19ec-499b-b039-53524dfdc4ef,1,Left_Bank,1.5,0.48,0.66,0.46,a7da354e-7336-41a4-a939-227ca081331a,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+5,25d7b1c0-3259-4ae6-849a-be0f36a228ab,1,,3,0.79,0.5,0.4,c6085dd1-79a4-4a54-a1c0-0b1e049f7198,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+6,e63b4a7f-d3d4-4aeb-b46e-886491cb5bee,1,Left_Bank,2.61,0.68,0.75,0.63,aa7242df-7cec-48bb-a07d-4131ece0ca1f,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+7,cf2e95c4-92bd-4d6a-b74c-767d5cef3481,1,Left_Bank,6,0.43,0.52,0.53,12f3fd56-f74d-4525-9abb-3dff0a08ba11,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+8,431ad3da-ddb4-4966-9d94-1941dabb6e6c,2,Left_Bank,1.7,0.41,0.62,0.67,12f3fd56-f74d-4525-9abb-3dff0a08ba11,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+9,de70a511-5f5e-466f-960d-a8306d0640c8,1,Left_Bank,7,0.674,0.63,0.99,ccdcb363-c37a-4e8a-ae71-a7ca03b450a9,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+10,a0c4b371-e414-403d-b6a8-db8b197fc877,1,Left_Bank,6,0.72,0.85,0.65,ac1868ba-495e-499b-9782-8f45b23bea44,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+11,3c6c3a92-056d-4f5a-97d4-88d059aade10,1,Left_Bank,1.8,0.89,0.93,0.71,7fbe4f7b-0c5e-49f0-be15-12cee38459fa,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+12,41117b31-5f96-4399-8354-cc536861e143,1,Right_Bank,3,0.97,0.93,0.69,7d074592-7117-4f9c-8426-d280aa463fbd,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+13,0c8ec2d6-c708-4d70-b017-40f98a8fc3d6,1,Left_Bank,4,0.5,0.63,0.47,d6fddfb9-90ff-4713-b89e-1e06fb2c5f21,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+14,970be870-b698-4f68-bf7c-f783731cb59d,1,Right_Bank,3,0.75,0.8,0.87,07932f50-ca06-4cad-919e-47a2a2c7006c,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+15,8f4243a4-e358-41a7-b83a-7cbf71df98a5,1,Right_Bank,2,0.6,0.89,0.7,99f24182-386f-4096-b201-5e7e03fcc7d7,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+16,48a957b0-0b1a-4d27-982d-e8d95f18b31c,1,Left_Bank,10,0.66,0.66,0.88,526b6ca1-6cc4-4a34-a0f8-a74e5ffed518,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+17,defb1f49-1fbd-4fdf-8d51-cdb8910525d8,1,Right_Bank,9,0.51,0.68,0.64,4d734399-d0a5-4448-9be3-e55fdfb13184,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+18,79b5a709-c668-4c46-86a6-813bd3495bc9,1,Right_Bank,4,0.8,0.55,0.7,62eae36b-50ea-4db9-8297-41c7305c474d,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+19,97aa5a16-d534-4a04-90b1-9836d2dd0fff,1,Right_Bank,10,0.78,1.15,0.75,f19ba05b-3c42-4548-b796-b7ab8ddcc2f1,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+20,853a2c32-845f-41d7-b360-43adcd325cb1,1,Left_Bank,6,0.6,1.8,2,2448565e-58f8-4abc-8a48-63cd378a1219,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+21,ffddda63-02d1-49b4-853c-08fdabd0226f,2,Left_Bank,3,0.62,0.94,0.7,2448565e-58f8-4abc-8a48-63cd378a1219,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+22,2a379bca-bb19-491b-9f05-f6d8d3ed3028,1,Left_Bank,3,0.4,0.63,0.59,2a2656a0-404e-4e8b-a2e7-63e5a7939496,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+23,a2606155-7232-4cfb-96bb-6213acb2d9a6,2,Left_Bank,8,1.18,0.83,0.93,2a2656a0-404e-4e8b-a2e7-63e5a7939496,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
+24,fa4c0592-87a6-429d-a1cc-dc5db46ac221,1,Right_Bank,6,0.61,0.48,0.43,714f53fe-f9b4-4c7f-b3c6-9565cd5dd9ad,9/9/2019 10:23:36 PM,richie@qcinc.org,9/9/2019 10:23:36 PM,richie@qcinc.org
