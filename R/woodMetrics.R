@@ -14,23 +14,20 @@ woodMetrics = function(input = NULL)
   if(is.character(input) == TRUE) { wd_tbl = read_csv(input) } else { wd_tbl = input }
   
   # calculate LWD metrics
-  wd_tbl = clean_names(wd_tbl, case = "lower_camel")
-  wd_tbl = select(wd_tbl, largeWoodNumber, lengthM, diameterM, wet, channelForming, ballasted, parentGlobalId)
-  wd_tbl = mutate(wd_tbl,
-                  woodA = diameterM * lengthM, # calculate individual piece areas in m2
-                  woodV = pi * ((diameterM/2)^2) * lengthM)
-  wd_tbl = group_by(wd_tbl, parentGlobalId)
-  wd_tbl = mutate(wd_tbl,
-                  lwdAT = sum(woodA),
-                  lwdVT = sum(woodV),
-                  lwdPieces = length(parentGlobalId),
-                  lwdWet = sum(wet == 'Yes'),
-                  lwdChnFrm = sum(channelForming == 'Yes'),
-                  lwdBallast = sum(ballasted == 'Yes')
-                  )
-  wd_tbl = ungroup(wd_tbl)
-  wd_tbl = distinct(wd_tbl, parentGlobalId, .keep_all = TRUE)
-  wd_tbl = select(wd_tbl, parentGlobalId, lwdVT, lwdAT, lwdPieces, lwdWet, lwdChnFrm, lwdBallast)
+  wd_tbl = clean_names(wd_tbl, case = "lower_camel") %>%
+    select(largeWoodNumber, lengthM, diameterM, wet, channelForming, ballasted, parentGlobalId) %>%
+    mutate(woodA = diameterM * lengthM, # calculate individual piece areas in m2
+           woodV = pi * ((diameterM/2)^2) * lengthM) %>%
+    group_by(parentGlobalID) %>% 
+    mutate(lwdAT = sum(woodA),
+           lwdVT = sum(woodV),
+           lwdPieces = length(parentGlobalId),
+           lwdWet = sum(wet == 'Yes'),
+           lwdChnFrm = sum(channelForming == 'Yes'),
+           lwdBallast = sum(ballasted == 'Yes')) %>%
+    ungroup() %>%
+    distinct(parentGlobalId, .keep_all = TRUE) %>%
+    select(parentGlobalId, lwdVT, lwdAT, lwdPieces, lwdWet, lwdChnFrm, lwdBallast)
   
   return(wd_tbl)
 }  

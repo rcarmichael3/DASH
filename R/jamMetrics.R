@@ -14,10 +14,10 @@ jamMetrics = function(input = NULL)
   if(is.character(input) == TRUE) { jam_tbl = read_csv(input) } else { jam_tbl = input }
   
   # calculate jam metrics
-  jam_tbl = clean_names(jam_tbl, case = "lower_camel")
-  jam_tbl = select(jam_tbl, lengthM, widthM, heightM, estimatedNumberOfPieces, parentGlobalId)
-  jam_tbl = mutate(jam_tbl, jamVolume = lengthM * widthM * heightM)
-  jam_tbl = select(jam_tbl, estimatedNumberOfPieces, jamVolume, parentGlobalId)
-  
+  jam_tbl = clean_names(jam_tbl, case = "lower_camel") %>%
+    select(lengthM, widthM, heightM, estimatedNumberOfPieces, parentGlobalID) %>%
+    mutate(jamVolume = lengthM * widthM * heightM) %>%
+    select(estimatedNumberOfPieces, jamVolume, parentGlobalID)
+
   return(jam_tbl)
 }  
