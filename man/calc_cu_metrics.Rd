@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_cu_metrics.R
 \name{calc_cu_metrics}
 \alias{calc_cu_metrics}
-\title{Channel Unit Metrics}
+\title{Channel Unit Metrics - Site Scale}
 \usage{
 calc_cu_metrics(folder_name = NULL)
 }

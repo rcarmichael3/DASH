@@ -1,4 +1,4 @@
-#' @title Channel Unit Metrics
+#' @title Channel Unit Metrics - Site Scale
 #'
 #' @description Combine all the channel unit measurements for a particular site and calculate channel unit metrics
 #'
