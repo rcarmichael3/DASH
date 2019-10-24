@@ -10,7 +10,7 @@
 #' @return NULL
 #' @export
 
-dash_QAQC = function(folder_name = NULL) {
+dashQAQC = function(folder_name = NULL) {
   surv_mets = read_csv(paste(folder_name, 'surveyPoint_0.csv', sep = '/'), col_types = cols()) %>%
     clean_names() %>%
     select(survey_time, survey_date, survey_crew) %>%
@@ -112,4 +112,4 @@ dash_QAQC = function(folder_name = NULL) {
     }
   }
 
-} # end dash_QAQC function
+} # end dashQAQC function
