@@ -15,9 +15,9 @@ jamMetrics = function(input = NULL)
   
   # calculate jam metrics
   jam_tbl = clean_names(jam_tbl, case = "lower_camel") %>%
-    select(lengthM, widthM, heightM, estimatedNumberOfPieces, parentGlobalID) %>%
+    select(lengthM, widthM, heightM, estimatedNumberOfPieces, parentGlobalId) %>%
     mutate(jamVolume = lengthM * widthM * heightM) %>%
-    select(estimatedNumberOfPieces, jamVolume, parentGlobalID)
+    select(estimatedNumberOfPieces, jamVolume, parentGlobalId)
 
   return(jam_tbl)
 }  

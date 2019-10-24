@@ -12,17 +12,28 @@
 
 calc_cu_metrics = function(folder_name = NULL) {
   
-  surv_pt = read_csv(paste(folder_name, 'surveyPoint_0.csv', sep = '/')) %>%
+  folder_files = list.files(folder_name)
+  surv_pt_file = folder_files[grepl('surveyPoint', folder_files)]
+  cu_mets_file = folder_files[grepl('CU', folder_files)]
+  wood_mets_file = folder_files[grepl('Wood', folder_files)]
+  jam_mets_file = folder_files[grepl('Jam', folder_files)]
+  und_mets_file = folder_files[grepl('Undercut', folder_files)]
+  disch_file = folder_files[grepl('Discharge_', folder_files)]
+  disch_meas_file = folder_files[grepl('DischargeMeasurements', folder_files)]
+  
+  
+  surv_pt = read_csv(paste(folder_name, surv_pt_file, sep = '/'),
+                     col_types = cols()) %>%
     clean_names() %>%
     select(site_id = global_id,
            site_name,
            survey_date,
            survey_crew) %>%
-    mutate(survey_date = mdy_hms(survey_date),
-           survey_date = floor_date(survey_date,
-                                    unit = 'day'))
+    mutate(survey_date = str_split(survey_date, ' ', simplify = T)[,1]) %>%
+    mutate(survey_date = mdy(survey_date))
   
-  cu_mets = read_csv(paste(folder_name, 'CU_1.csv', sep = '/')) %>%
+  cu_mets = read_csv(paste(folder_name, cu_mets_file, sep = '/'),
+                     col_types = cols()) %>%
     clean_names() %>%
     select(-starts_with('pebble'),
            -(creation_date:editor)) %>%
@@ -42,53 +53,93 @@ calc_cu_metrics = function(folder_name = NULL) {
     mutate(cv_ssc_width = sd_ssc_width / avg_ssc_width) %>%
     select(-sd_ssc_width)
   
-  wood_mets = read_csv(paste(folder_name, 'Wood_2.csv', sep = '/')) %>%
-    woodMetrics() %>%
-    clean_names()
+  wood_mets = try(read_csv(paste(folder_name, wood_mets_file, sep = '/'),
+                           col_types = cols()) %>%
+                    woodMetrics() %>%
+                    clean_names())
   
-  jam_mets = read_csv(paste(folder_name, 'Jam_3.csv', sep = '/')) %>%
-    jamMetrics() %>%
-    clean_names() %>%
-    group_by(parent_global_id) %>%
-    summarise_at(vars(estimated_number_of_pieces, jam_volume),
-                 list(sum))
+  if(class(wood_mets)[1] == 'try-error') {
+    wood_mets = tibble(parent_global_id = cu_mets$global_id[1],
+                      lwd_vt = NA,
+                      lwd_at = NA,
+                      lwd_pieces = NA,
+                      lwd_wet = NA,
+                      lwd_chn_frm = NA,
+                      lwd_ballast = NA)
+  }
   
-  und_mets = read_csv(paste(folder_name, 'Undercut_4.csv', sep = '/')) %>%
-    undercutMetrics() %>%
-    clean_names() %>%
-    group_by(parent_global_id) %>%
-    summarise_at(vars(undercut_at, undercut_length, n_undercuts),
-                 list(sum))
-    
+  
+  jam_mets = try(read_csv(paste(folder_name, jam_mets_file, sep = '/'),
+                          col_types = cols()) %>%
+                   jamMetrics() %>%
+                   clean_names() %>%
+                   group_by(parent_global_id) %>%
+                   summarise_at(vars(estimated_number_of_pieces, jam_volume),
+                                list(sum)))
+  
+  if(class(jam_mets)[1] == 'try-error') {
+    jam_mets = tibble(parent_global_id = cu_mets$global_id[1],
+                      estimated_number_of_pieces = NA,
+                      jam_volume = NA)
+  }
+  
+  und_mets = try(read_csv(paste(folder_name, und_mets_file, sep = '/'),
+                          col_types = cols()) %>%
+                   undercutMetrics() %>%
+                   clean_names() %>%
+                   group_by(parent_global_id) %>%
+                   summarise_at(vars(undercut_at, undercut_length, n_undercuts),
+                                list(sum)))
+  
+  if(class(und_mets)[1] == 'try-error') {
+    und_mets = tibble(parent_global_id = cu_mets$global_id[1],
+                      undercut_at = NA, 
+                      undercut_length = NA, 
+                      n_undercuts = NA)
+  } 
+  
+   
   # combine all of these together
   all_cu_mets = surv_pt %>%
     full_join(cu_mets %>%
                 select(-starts_with('width')) %>%
-                rename(parent_global_id = global_id)) %>%
-    full_join(wood_mets) %>%
-    full_join(jam_mets) %>%
-    full_join(und_mets) %>%
-    full_join(ssc_width) %>%
+                rename(parent_global_id = global_id),
+              by = 'site_id') %>%
+    full_join(wood_mets,
+              by = 'parent_global_id') %>%
+    full_join(jam_mets,
+              by = 'parent_global_id') %>%
+    full_join(und_mets,
+              by = 'parent_global_id') %>%
+    full_join(ssc_width,
+              by = 'parent_global_id') %>%
     rename(channel_unit_id = parent_global_id) %>%
     mutate_at(vars(overhanging_cover:boulder_256mm),
               list(~ if_else(is.na(.),
-                             0, as.numeric(.))))
+                             0, as.numeric(.)))) %>%
+    tidyr::fill(site_id, site_name)
     
+
+  # discharge is sometimes recorded at top or bottom of site (TOS, BOS), but this doesn't match
+  # any particular channel_unit_id. Unclear whether channel units were labeled moving upstream or downstream.
+  # until that is resolved, not including discharge
   
-  disch_mets = read_csv(paste(folder_name, 'DischargeMeasurements_6.csv', sep = '/')) %>%
-    clean_names() %>%
-    mutate(station_discharge = station_width * station_depth * station_velocity) %>%
-    group_by(parent_global_id) %>%
-    summarise(Q = sum(station_discharge)) %>%
-    left_join(read_csv(paste(folder_name, 'Discharge_5.csv', sep = '/')) %>%
-                clean_names() %>%
-                select(site_id = parent_global_id,
-                       parent_global_id = global_id,
-                       channel_unit_number = discharge_location_bos_tos_cu_number)) %>%
-    select(-parent_global_id)
-  
-  all_cu_mets = all_cu_mets %>%
-    left_join(disch_mets)
+  # disch_mets = read_csv(paste(folder_name, disch_meas_file, sep = '/'),
+  #                       col_types = cols()) %>%
+  #   clean_names() %>%
+  #   mutate(station_discharge = station_width * station_depth * station_velocity) %>%
+  #   group_by(parent_global_id) %>%
+  #   summarise(Q = sum(station_discharge)) %>%
+  #   left_join(read_csv(paste(folder_name, disch_file, sep = '/'),
+  #                      col_types = cols()) %>%
+  #               clean_names() %>%
+  #               select(site_id = parent_global_id,
+  #                      parent_global_id = global_id,
+  #                      channel_unit_number = discharge_location_bos_tos_cu_number)) %>%
+  #   select(-parent_global_id)
+  # 
+  # all_cu_mets = all_cu_mets %>%
+  #   left_join(disch_mets)
   
   return(all_cu_mets)
 }

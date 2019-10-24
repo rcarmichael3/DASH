@@ -18,7 +18,7 @@ woodMetrics = function(input = NULL)
     select(largeWoodNumber, lengthM, diameterM, wet, channelForming, ballasted, parentGlobalId) %>%
     mutate(woodA = diameterM * lengthM, # calculate individual piece areas in m2
            woodV = pi * ((diameterM/2)^2) * lengthM) %>%
-    group_by(parentGlobalID) %>% 
+    group_by(parentGlobalId) %>% 
     mutate(lwdAT = sum(woodA),
            lwdVT = sum(woodV),
            lwdPieces = length(parentGlobalId),
