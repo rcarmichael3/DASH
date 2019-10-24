@@ -11,5 +11,8 @@ library(lubridate)
 library(DASH)
 
 top_folder = "data/raw/dash2019"
+
+qaqc = compileQAQC(top_folder)
+
 all_mets = compile_cu_metrics(top_folder)
 
