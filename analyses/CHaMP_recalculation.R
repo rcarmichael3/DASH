@@ -75,6 +75,10 @@ LWD_Met_Wet_Site <- LWD_Met_Wet_CU %>%
   distinct(VisitID, .keep_all = TRUE) %>%
   select(-4, -5)
 
+LWcnt_Wet <- LWD_Met_Wet_Site %>%
+  select(1, 4) %>%
+  rename(LWcnt_Wet = N_Wet)
+
 
 ##Calculating site level "dry" wood metrics, total volume and number of pieces#
 LWD_Met_Dry_Site <- LWD_Met_Dry_CU %>%
@@ -142,20 +146,30 @@ Undercut_Metrics <- Undercut_Select %>%
   mutate(Undercut_Lng_Site = sum(EstimatedLength)) %>%
   mutate(N_Undercuts_Site = sum(N_Undercuts_CU)) %>%
   distinct(VisitID, .keep_all = TRUE) %>%
-  select(1, 9:11)
+  select(1, 9, 10)
+
+##Reading in CU area information##
+load("champ_cu.rda")
+
+CU_Area <- champ_cu %>%
+  select(1, 3, 6) 
 
 ##Calculating Substrate Cover metrics
 SubstrateCover_Metrics <- SubstrateCover %>%
   select(8, 12, 34, 36:42) %>%
   filter(VisitYear >= 2014) %>%
-  mutate(Perc_Gravel = CoarseGravel1764 + FineGravel316) %>%
-  mutate(Perc_Fines = Sand0062 + FinesLT006) %>%
-  rename(Perc_Boulder = BouldersGT256, 
-         Perc_Cobble = Cobbles65255) %>%
-  select(2, 3, 4:5, 11, 12)
+  mutate(SubEstGrvl = CoarseGravel1764 + FineGravel316) %>%
+  mutate(SubEstSandFines = Sand0062 + FinesLT006) %>%
+  rename(SubEstBldr = BouldersGT256, 
+         SubEstCbl = Cobbles65255) %>%
+  select(2, 3, 5, 11, 12) %>%
+  rename(ChUnitNumber = ChannelUnitID) %>%
+  left_join(CU_Area, by = c("VisitID", "ChUnitNumber")) %>%
+  
 
 
-##Joining channel unit metrics back to Channel_Unit_Select##
+
+##Joining channel unit metrics and area to Champ_Dash_Met_CU##
 LWD_Metrics_Select <- LWD_Metrics %>%
   select(-3)
 
@@ -173,12 +187,17 @@ Champ_Dash_Met_CU <- Channel_Unit_All %>%
   left_join(LWD_Met_Dry_CU_Select, by = c("VisitID", "ChannelUnitID")) %>%
   left_join(Undercut_Met_CU, by = c("VisitID", "ChannelUnitID")) %>%
   left_join(SubstrateCover_Metrics, by =c("VisitID", "ChannelUnitID")) %>%
+  left_join(CU_Area, by =c("VisitID", "ChannelUnitID" = "ChUnitNumber")) %>%
   mutate_at(c(4:12), funs(replace(., is.na(.), 0))) 
 
 
 
-  
-  
+##Calculate Site level Wet wood volume##
+LWVol_Wet <- Champ_Dash_Met_CU %>%
+  group_by(VisitID) %>%
+  mutate(LWVol_Wet = sum(Wet_Wood_VT)) %>%
+  distinct(VisitID, .keep_all = TRUE) %>%
+  select(1, 18)
 
 
 CHaMP_CU_Metrics <- left_join(Channel_Unit_Select, LWD_Metrics, by = c("VisitID" , "ChannelUnitID")) %>%
@@ -193,57 +212,53 @@ CHaMP_CU_Metrics <- left_join(Channel_Unit_Select, LWD_Metrics, by = c("VisitID"
 
 
 
-
-##Calculating New Site Level metrics from CU metrics##
-
-CHaMP_Site_Metrics <- CHaMP_CU_Metrics %>%
-  group_by(VisitID) %>%
-  mutate(Site_Wood_V = sum(Wood_VT)) %>%
-  mutate(Site_N_Wood = sum(N_Wood)) %>%
-  mutate(Site_N_Wet = sum(N_Wet)) %>%
-  mutate(LWVol_Wet = sum(Wet_V_T)) %>%
-  mutate(Site_Dry_VT = sum(Dry_V_T)) %>%
-  mutate(Site_N_Dry = sum(N_Dry)) %>%
-  mutate(Site_UC_Area = sum(Undercut_Area)) %>%
-  mutate(Site_UC_Length = sum(Undercut_L)) %>%
-  mutate(Site_N_UC = sum(N_Undercuts)) %>%
-  mutate(Site_Bedrock = mean(Bedrock, na.rm = TRUE)) %>%
-  mutate(SubEstBldr = mean(Perc_Boulder, na.rm = TRUE)) %>%
-  mutate(SubEstCbl = mean(Perc_Cobble, na.rm = TRUE)) %>%
-  mutate(SubEstGrvl = mean(Perc_Gravel, na.rm = TRUE)) %>%
-  mutate(SubEstSandFines = mean(Perc_Fines, na.rm = TRUE)) %>%
-  select(8, 10, 28:41) %>%
-  filter(ChannelUnitID == 1) %>%
-  left_join(LWVol_WetFstNT, by = "VisitID") %>%
-  left_join(LWVol_WetFstTurb, by = "VisitID") %>%
-  left_join(LWVol_WetSlow, by = "VisitID") %>%
-  mutate_at(c(17:19), funs(replace(., is.na(.), 0)))
-  
-
-
 ##Merging newly calculated CHaMP_Site_Metrics with CHaMP_Site_Data##
 ##This chunk of code can pull any desired metrics from the "CHaMP_Site_Data.csv' file##
 
-CHaMP_Site_Data_Select <- read.csv("champ_site_2011_17.csv") %>%
+CHaMP_Dash_Met <- read.csv("champ_site_2011_17.csv") %>%
   filter(VisitYear >= 2014) %>%
-  select("FishCovNone", "FishCovLW", "FishCovTVeg",
-         "FishCovArt", "FishCovNone", "FishCovAqVeg",
-         "FishCovTotal", "Q", "SubD16", "SubD50", 
-         "SubD84",
-         "DpthThlwgExit", "DpthResid", "PolyArea",
-         "Freq", "DpthThlwgMax_Avg", "DpthThlwgExit", 
-         "WetWdth_Int", "Lgth_Wet", "Area_Wet", "SlowWater_Area",
-         "SlowWater_Ct", "SlowWater_Freq", "SlowWater_Pct",
-         "FstTurb_Area", "FstTurb_Pct", "FstTurb_Freq",
-         "FstNT_Area", "FstNT_Ct", "FstNT_Pct", "WetWdth_CV",
-         "Sin_CL", "WetBraid", "WetChnl_Ct", "WetChnl_Sin",
-         "Wet_QIsland_Ct", "Lgth_WetChnl", "WetWMxDRat_CV",
-         "WetWMxDRat_Avg", "WetMChnl_Area", "WetSCL_Area",
-         "WetSCS_Area", "WetSC_Pct", "VisitYear", "ChannelType",
-         "CU_Ct", "CU_Freq", "DistPrin1", "NatPrin1", "NatPrin2",
-         "CUMDRAINAG", "Ppt", "MeanU") 
+  select("Watershed", "Site", "SampleDate", "Organization",
+         "VisitID", "Category", "StreamName", "VisitYear", "LON_DD",
+         "LAT_DD", "ValleyClass", "Channel_Type", "CUMDRAINAG", 
+         "DistPrin1", "NatPrin1", "NatPrin2", "MeanU", "SlowWater_Area",
+         "SlowWater_Ct", "SlowWater_Vol", "SlowWater_Pct", "FstTurb_Area",
+         "FstTurb_Ct", "FstTurb_Vol", "FstNT_Area", "FstTurb_Pct", "FstNT_Ct",
+         "FstNT_Vol", "FstNT_Pct", "Grad", "Sin", "Lgth_Wet", "Area_Wet",
+         "WetVol", "WetWdth_Int", "WetBraid", "DpthWet_SD", "WetWdth_CV",
+         "WetWdth_Avg", "WetSCWdth", "SlowWater_Freq", "FstTurb_Freq",
+         "FstNT_Freq", "DpthThlwg_Avg", "PoolResidDpth", "WetSCL_Area",
+         "SCSm_Area", "WetSC_Pct", "SCSm_Freq", "SCSm_Vol", "Q",
+         "SubD16", "SubD50", "SubD84", "Cond", "FishCovLW", "FishCovTVeg",
+         "FishCovArt", "FishCovNone", "FishCovAqVeg", "FishCovTotal", "SC_Area",
+         "SC_Area_Pct", "ChnlUnitTotal_Ct", "CU_Ct", "CU_Freq", "SubEstBldr",
+         "SubEstCbl", "SubEstSandFines", "SubEstGrvl") %>%
+  left_join(LWVol_Wet, by = "VisitID") %>%
+  left_join(LWVol_WetFstNT, by = "VisitID") %>%
+  left_join(LWVol_WetFstTurb, by = "VisitID") %>%       
+  left_join(LWVol_WetSlow, by = "VisitID") %>%
+  left_join(Undercut_Metrics, by = "VisitID") %>%
+  rename(UcutArea = Undercut_A_Site, UcutLgth = Undercut_Lng_Site) %>%
+  left_join(LWcnt_Wet, by = "VisitID") %>%
+  mutate(LWFreq_Wet = ((LWcnt_Wet/Lgth_Wet) * 100)) %>%
+  mutate(UcutLgth_Pct = UcutLgth/Lgth_Wet) %>%
+  mutate(UcutArea_Pct = UcutArea/Area_Wet) 
+  
 
-CHaMP_Winter_Metrics <- left_join(CHaMP_Site_Metrics, CHaMP_Site_Data_Select, by = "VisitID")
+
+
+  
+ write.csv(CHaMP_Dash_Met, "C:/GIT/QRFcapacity/data/prepped/ChaMP_Dash_Met.csv")
+  
+         
+         ##"UcutLgth_Pct", "UcutArea_Pct"
+         ##"SubEstBldr", "SubEstCbl"
+         ##LWFfreq_Wet"
+         ##"SubEstSandFines
+         ##"SubEstGrvl"
+         ##"LWVol_Wet", "LWVol_WetSlow",
+         ##"LWVol_WetFstTurb", "LWVol_WetFstNT", "Ucut_Area" 
+
+
 
 
 
