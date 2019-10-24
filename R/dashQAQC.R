@@ -29,7 +29,8 @@ dashQAQC = function(folder_name = NULL) {
   trues = which(is.na(cu_mets), arr.ind = TRUE)
   if(nrow(trues) > 0) {
     for(t in 1:nrow(trues)) {
-      print(paste("The global_id", cu_mets[trues[t,1],1], "and the column", names(cu_mets)[trues[t,2]],"contains a <blank> or NA value"))
+      print(paste("The global_id", cu_mets[trues[t,1],1], "and the column", names(cu_mets)[trues[t,2]], "of the CU_1.csv data within",
+                  folder_name,"contains a <blank> or NA value"))
     }
   }
 
@@ -39,11 +40,11 @@ dashQAQC = function(folder_name = NULL) {
     mutate_at(c(2:5), funs(replace(., is.na(.), 0))) %>%
     mutate(ocular_sum = rowSums(.[2:5])) %>%
     select(global_id, ocular_sum)
-  
-  not100 = which(ocular[,2] != 100, arr.ind = TRUE)
+    
+  not100 = which(ocular[,2] != 0 & ocular[,2] != 100, arr.ind = TRUE)
   if(nrow(not100) > 0) {
     for(n in 1:nrow(not100)) {
-      print(paste("The global_id", ocular[not100[n,1],1], "sum of ocular estimates contains a value not equal to 100"))
+      print(paste("The global_id", ocular[not100[n,1],1], "sum of ocular estimates within the", folder_name ,"directory contains a value not equal to 100"))
     }
   }
   

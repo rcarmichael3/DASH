@@ -25,5 +25,4 @@ compileQAQC = function(folder_name = NULL) {
                return(res)
              }
            })
-  
 }
