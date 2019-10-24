@@ -86,9 +86,30 @@ dash_QAQC = function(folder_name = NULL) {
     }
   }
 
-  dis_mets = read_csv(paste(folder_name, 'Discharge_5.csv', sep = '/'), col_types = cols())
-  disM_mets = read_csv(paste(folder_name, 'DischargeMeasurements_6.csv', sep = '/'), col_types = cols())
+  dis_mets = read_csv(paste(folder_name, 'Discharge_5.csv', sep = '/'), col_types = cols()) %>%
+    clean_names() %>%
+    select(global_id, discharge_location_bos_tos_cu_number) %>%
+    is.na()
   
-}
+  dis_trues = which(dis_mets == T, arr.ind = TRUE)
+  if(nrow(dis_trues) > 0) {
+    for(d in 1:nrow(dis_trues)) {
+      print(paste("Row", dis_trues[d,1], "and the column", colnames(dis_mets)[dis_trues[d,1]], "within", folder_name,
+                  "contains a <blank> or NA value"))
+    }
+  }
+  
+  disM_mets = read_csv(paste(folder_name, 'DischargeMeasurements_6.csv', sep = '/'), col_types = cols()) %>%
+    clean_names() %>%
+    select(global_id, station_width, station_depth, station_velocity) %>%
+    is.na()
+ 
+  disM_trues = which(disM_mets == T, arr.ind = TRUE) 
+  if(nrow(disM_trues) > 0) {
+    for(i in 1:nrow(dis_trues)) {
+      print(paste("Row", disM_trues[i,1], "and the column", colnames(disM_mets)[disM_trues[i,1]], "within", folder_name,
+                  "contains a <blank> or NA value"))
+    }
+  }
 
-dash_QAQC(folder_name = "data/raw/dash2019/Arbon_Survey123_2019")
+} # end dash_QAQC function

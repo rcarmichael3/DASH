@@ -2,6 +2,7 @@
 
 export(calc_cu_metrics)
 export(compile_cu_metrics)
+export(dash_QAQC)
 export(jamMetrics)
 export(pebbleCountMetrics)
 export(undercutMetrics)
