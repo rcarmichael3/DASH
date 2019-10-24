@@ -11,7 +11,7 @@
 #' @export
 
 dash_QAQC = function(folder_name = NULL) {
-  surv_mets = read_csv(paste(folder_name, 'surveyPoint_0.csv', sep = '/')) %>%
+  surv_mets = read_csv(paste(folder_name, 'surveyPoint_0.csv', sep = '/'), col_types = cols()) %>%
     clean_names() %>%
     select(survey_time, survey_date, survey_crew) %>%
     is.na()
@@ -21,7 +21,7 @@ dash_QAQC = function(folder_name = NULL) {
     "contains a <blank> or NA"))
   }
   
-  cu_mets = read_csv(paste(folder_name, 'CU_1.csv', sep = '/')) %>%
+  cu_mets = read_csv(paste(folder_name, 'CU_1.csv', sep = '/'), col_types = cols()) %>%
     clean_names() %>%
     select(global_id, channel_unit_type, channel_unit_number, channel_segment_number, thalweg_exit_depth_m, total_no_cover, 
            maximum_depth_m)
@@ -33,7 +33,7 @@ dash_QAQC = function(folder_name = NULL) {
     }
   }
 
-  ocular = read_csv(paste(folder_name, 'CU_1.csv', sep = '/')) %>%
+  ocular = read_csv(paste(folder_name, 'CU_1.csv', sep = '/'), col_types = cols()) %>%
     clean_names() %>%
     select(global_id, sand_fines_2mm:boulder_256mm) %>%
     mutate_at(c(2:5), funs(replace(., is.na(.), 0))) %>%
@@ -47,7 +47,7 @@ dash_QAQC = function(folder_name = NULL) {
     }
   }
   
-  wood_mets =  read_csv(paste(folder_name, 'Wood_2.csv', sep = '/')) %>%
+  wood_mets =  read_csv(paste(folder_name, 'Wood_2.csv', sep = '/'), col_types = cols()) %>%
     clean_names() %>%
     select(global_id, large_wood_number:ballasted) %>%
     is.na()
@@ -60,52 +60,35 @@ dash_QAQC = function(folder_name = NULL) {
     }
   }
   
-  jam_mets = read_csv(paste(folder_name, 'Jam_3.csv', sep = '/'))
+  jam_mets = read_csv(paste(folder_name, 'Jam_3.csv', sep = '/'), col_types = cols()) %>%
+    clean_names() %>%
+    select(global_id, length_m, width_m, height_m, estimated_number_of_pieces) %>%
+    is.na()
   
-  und_mets = read_csv(paste(folder_name, 'Undercut_4.csv', sep = '/'))
+  jam_trues = which(jam_mets == T, arr.ind = TRUE)
+  if(nrow(jam_trues) > 0) {
+    for(j in 1:nrow(jam_trues)) {
+      print(paste("Row", jam_trues[j,1], "and the column", colnames(jam_mets)[jam_trues[j,2]], "within", folder_name,
+                  "contains a <blank> or NA value"))
+    }
+  }
   
-  dis_mets = read_csv(paste(folder_name, 'Discharge_5.csv', sep = '/'))
+  und_mets = read_csv(paste(folder_name, 'Undercut_4.csv', sep = '/'), col_types = cols()) %>%
+    clean_names() %>%
+    select(global_id, undercut_number, location, length_m, width_25_percent_m, width_50_percent_m, width_75_percent_m) %>%
+    is.na()
   
-  disM_mets = read_csv(paste(folder_name, 'DischargeMeasurements_6.csv', sep = '/')) 
+  und_trues = which(und_mets == T, arr.ind = TRUE)
+  if(nrow(und_trues) > 0) {
+    for(u in 1:nrow(und_trues)) {
+      print(paste("Row", und_trues[u,1], "and the column", colnames(und_mets)[und_trues[u,1]], "within", folder_name,
+                  "contains a <blank> or NA value"))
+    }
+  }
+
+  dis_mets = read_csv(paste(folder_name, 'Discharge_5.csv', sep = '/'), col_types = cols())
+  disM_mets = read_csv(paste(folder_name, 'DischargeMeasurements_6.csv', sep = '/'), col_types = cols())
+  
 }
 
 dash_QAQC(folder_name = "data/raw/dash2019/Arbon_Survey123_2019")
-# calc_cu_metrics = function(folder_name = NULL) {
-#   
-#   cu_mets = read_csv(paste(folder_name, 'CU_1.csv', sep = '/')) %>%
-#     select(-starts_with('Pebble'))
-#   
-#   wood_mets = read_csv(paste(folder_name, 'Wood_2.csv', sep = '/')) %>%
-#     woodMetrics()
-#   
-#   jam_mets = read_csv(paste(folder_name, 'Jam_3.csv', sep = '/')) %>%
-#     jamMetrics() %>%
-#     group_by(parentGlobalId) %>%
-#     summarise_at(vars(estimatedNumberOfPieces, jamVolume),
-#                  list(sum))
-#   
-#   und_mets = read_csv(paste(folder_name, 'Undercut_4.csv', sep = '/')) %>%
-#     undercutMetrics() %>%
-#     group_by(parentGlobalId) %>%
-#     summarise_at(vars(undercutAT, undercutLength, nUndercuts),
-#                  list(sum))
-#     
-#   
-#   cu_mets %>%
-#     select(-starts_with('Width')) %>%
-#     rename(parentGlobalId = GlobalID) %>%
-#     full_join(wood_mets) %>%
-#     full_join(jam_mets) %>%
-#     full_join(und_mets)
-#   
-#   
-#   
-#   read_csv(paste(folder_name, 'Discharge_5.csv', sep = '/')) %>%
-#     as.data.frame()
-#   
-#   read_csv(paste(folder_name, 'DischargeMeasurements_6.csv', sep = '/'))
-#   
-#   cu_mets %>%
-#     select(GlobalID, starts_with("Pebble"))
-#   
-# }
