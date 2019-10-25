@@ -9,6 +9,7 @@
 library(tidyverse)
 library(ggplot2)
 library(sf)
+library(usethis)
 
 #-----------------------------------------------------------------
 # read in data
@@ -86,6 +87,25 @@ lower_lemhi = lower_lemhi %>%
   select(-Reach)
 
 # merge all sites
-dash2018 = rbind(upper_lemhi, lower_lemhi, pahs, upper_salmon)
+dash2018_cu = rbind(upper_lemhi, lower_lemhi, pahs, upper_salmon) %>%
+  select(SiteNam, Reach_Nmb, everything())
 
 # begin rolling up summaries by fish reach
+dash2018_fr = dash2018_cu %>%
+  group_by(SiteNam, Reach_Nmb) %>%
+  summarise(No_Cov = weighted.mean(No_Cov, SHAPE_A),
+            SHAPE_A = sum(SHAPE_A),
+            Max_Dpth = max(Mx_Dpth),
+            Avg_Mx_Depth = mean(Mx_Dpth),
+            CV_Mx_Depth = sd(Mx_Dpth) / mean(Mx_Dpth),
+            Jam_Vlm = sum(Jam_Vlm),
+            Wod_Cnt = sum(Wod_Cnt),
+            Wod_Vlm = sum(Wod_Vlm),
+            N_Bllst = sum(N_Bllst),
+            N_ChFrm = sum(N_ChFrm),
+            N_Wet = sum(N_Wet),
+            Undrc_L = sum(Undrc_L),
+            Undrc_V = sum(Undrc_V))
+
+# write fish reach data to csv
+write_csv(dash2018_fr, 'data/prepped/dash2018_fr.csv')
