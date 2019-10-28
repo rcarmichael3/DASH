@@ -24,8 +24,10 @@ dashQAQC = function(folder_name = NULL) {
   cu_mets = read_csv(paste(folder_name, 'CU_1.csv', sep = '/'), col_types = cols()) %>%
     clean_names() %>%
     select(global_id, channel_unit_type, channel_unit_number, channel_segment_number, thalweg_exit_depth_m, total_no_cover, 
-           maximum_depth_m)
-  
+           maximum_depth_m) %>%
+    mutate(thalweg_exit_depth_m = case_when(channel_unit_type == 'OCA' ~ 0,
+                                            channel_unit_type != 'OCA' ~ thalweg_exit_depth_m))
+          
   trues = which(is.na(cu_mets), arr.ind = TRUE)
   if(nrow(trues) > 0) {
     for(t in 1:nrow(trues)) {
