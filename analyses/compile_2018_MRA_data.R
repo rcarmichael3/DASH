@@ -74,7 +74,7 @@ pahs_poly = pahs_poly %>%
 pahs = rbind(pahs_line, pahs_poly)
 pahs = as.data.frame(pahs)
 
-# merge upper data
+# merge upper salmon data
 upper_salmon_line = upper_salmon_line %>%
   mutate(A_Vg_Cv = NA, Length = NA, sinusty = NA)
 upper_salmon_poly = upper_salmon_poly %>%
@@ -88,12 +88,24 @@ lower_lemhi = lower_lemhi %>%
 
 # merge all sites
 dash2018_cu = rbind(upper_lemhi, lower_lemhi, pahs, upper_salmon) %>%
-  select(SiteNam, Reach_Nmb, everything())
+  select(SiteNam, Reach_Nmb, everything()) %>%
+  mutate(Len = ifelse(is.na(Length), SHAPE_L, Length)) %>%
+  select(- Length, SHAPE_L) %>%
+  rename(Length = Len)
+
 
 # begin rolling up summaries by fish reach
 dash2018_fr = dash2018_cu %>%
   group_by(SiteNam, Reach_Nmb) %>%
-  summarise(No_Cov = weighted.mean(No_Cov, SHAPE_A),
+  summarise(FishCovNone = weighted.mean(No_Cov, SHAPE_A),
+            Prc_Grv = weighted.mean(Prc_Grv, SHAPE_A),
+            FstTurb_Cnt = length(which(Unt_Typ == 'Riffle' | Unt_Typ == 'Rapid')),
+            FstNT_Cnt = length(which(Unt_Typ == 'Run')),
+            CU_Cnt = length(Unt_Nmb),
+            Length = sum(Length),
+            FstTurb_Freq = (FstTurb_Cnt / Length) * 100,
+            FstNT_Freq = (FstNT_Cnt / Length) * 100,
+            CU_Freq = (CU_Cnt / Length) * 100,
             SHAPE_A = sum(SHAPE_A),
             Max_Dpth = max(Mx_Dpth),
             Avg_Mx_Depth = mean(Mx_Dpth),
@@ -105,7 +117,61 @@ dash2018_fr = dash2018_cu %>%
             N_ChFrm = sum(N_ChFrm),
             N_Wet = sum(N_Wet),
             Undrc_L = sum(Undrc_L),
-            Undrc_V = sum(Undrc_V))
+            Undrc_A = sum(Undrc_V)) %>%
+  mutate(UcutArea_Pct = (Undrc_A / SHAPE_A) * 100)
+# 'SlowWater_Pct', 'NatPrin1', 'DistPrin1', 'avg_aug_temp', 'Sin_CL', 'WetWdth_CV', 'WetBraid', 'WetSC_Pct', 'Discharge', 
+# 'WetWdth_Int', 'LWFreq_Wet', 'LWVol_WetFstTurb'))
+
+##Slowwater pct
+Pool_A <- dash2018_cu %>%
+  filter(Unt_Typ == "Pool") %>%
+  group_by(SiteNam, Reach_Nmb) %>%
+  summarise(Pool_A = sum(SHAPE_A)) %>%
+  ungroup()
+
+Slowwater_Pct <- dash2018_cu %>%
+  group_by(SiteNam, Reach_Nmb) %>%
+  summarise(Total_A = sum(SHAPE_A)) %>%
+  left_join(Pool_A, by = c("SiteNam", "Reach_Nmb")) %>%
+  ungroup() %>%
+  mutate(Slowwat_Pct = (Pool_A/Total_A))
+
+dash2018_fr = dash2018_fr %>%
+  left_join(Slowwater_Pct)
+
+##Side channel percent
+SC_A <- dash2018_cu %>%
+  filter(Sgmnt_N > 1) %>%
+  group_by(SiteNam, Reach_Nmb) %>%
+  summarise(SC_A = sum(SHAPE_A)) %>%
+  ungroup()
+
+SC_Pct <- dash2018_cu %>%
+  group_by(SiteNam, Reach_Nmb) %>%
+  summarise(Total_A = sum(SHAPE_A)) %>%
+  left_join(SC_A, by = c("SiteNam", "Reach_Nmb")) %>%
+  ungroup() %>%
+  mutate(SC_Pct = (SC_A/Total_A)) %>%
+  -select(Total_A)
+
+dash2018_fr = dash2018_fr %>%
+  left_join(SC_Pct)
+
+##large wood frequency
+LW_count_wet <- dash2018_cu %>%
+  group_by(SiteNam, Reach_Nmb) %>%
+  summarise(Wood_Ct = sum(N_Wet))
+
+LWFreq_Wet <- dash2018_cu %>%
+  group_by(SiteNam, Reach_Nmb) %>%
+  summarise(Total_L = sum(Length)) %>%
+  ungroup() %>%
+  left_join(LW_count_wet, by = c("SiteNam", "Reach_Nmb")) %>%
+  mutate(LWFreq_Wet = ((Wood_Ct/Total_L)*100)) %>%
+  select(-Total_L)
+
+dash2018_fr = dash2018_fr %>%
+  left_join(LWFreq_Wet)
 
 # write fish reach data to csv
 write_csv(dash2018_fr, 'data/prepped/dash2018_fr.csv')
