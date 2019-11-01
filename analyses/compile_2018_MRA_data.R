@@ -1,4 +1,4 @@
-# Author: Mike Ackerman 
+# Author: Mike Ackerman & Richie Carmichael
 # Purpose: Compiling 2018 MRA DASH data
 # Created: 10/25/2019
 # Last Modified: 10/25/2019
@@ -119,8 +119,6 @@ dash2018_fr = dash2018_cu %>%
             Undrc_L = sum(Undrc_L),
             Undrc_A = sum(Undrc_V)) %>%
   mutate(UcutArea_Pct = (Undrc_A / SHAPE_A) * 100)
-# 'SlowWater_Pct', 'NatPrin1', 'DistPrin1', 'avg_aug_temp', 'Sin_CL', 'WetWdth_CV', 'WetBraid', 'WetSC_Pct', 'Discharge', 
-# 'WetWdth_Int', 'LWFreq_Wet', 'LWVol_WetFstTurb'))
 
 ##Slowwater pct
 Pool_A <- dash2018_cu %>%
@@ -152,7 +150,7 @@ SC_Pct <- dash2018_cu %>%
   left_join(SC_A, by = c("SiteNam", "Reach_Nmb")) %>%
   ungroup() %>%
   mutate(SC_Pct = (SC_A/Total_A)) %>%
-  -select(Total_A)
+  select(-Total_A)
 
 dash2018_fr = dash2018_fr %>%
   left_join(SC_Pct)
@@ -172,6 +170,15 @@ LWFreq_Wet <- dash2018_cu %>%
 
 dash2018_fr = dash2018_fr %>%
   left_join(LWFreq_Wet)
+
+# NatPrin1: from master sample points data
+# DistPrin1: from master sample points data
+# avg_aug_temp: from Norwest data which Richie is joining to master sample points
+# Sin_CL: calculated from imagery for each fish reach
+# WetWdth_CV: Reconsider. Can we automate calculation of this? Maybe we need to remove
+# WetBraid
+
+# 'Discharge','WetWdth_Int', 'LWVol_WetFstTurb'))
 
 # write fish reach data to csv
 write_csv(dash2018_fr, 'data/prepped/dash2018_fr.csv')

@@ -1,89 +1,89 @@
 ﻿ObjectID,GlobalID,Length (m),Width (m),Height (m),Estimated Number of Pieces,ParentGlobalID,CreationDate,Creator,EditDate,Editor
-1,47fd10b7-f0f0-464d-bfdf-e7296ea638f0,5,4.5,2,6,fb80e367-7772-435c-86ee-89aee92186e5,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-2,5175c022-a0fc-40e5-b8c0-5a65af4f3fee,15,2,2,11,bfb65222-8df0-491c-a935-c4fb3191d5fc,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-3,d2f655d3-e161-4c89-a604-3f8d578df258,10,6,2,15,9d707e31-a613-4288-9cf4-a8e16c5a321a,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-4,88c0b070-96c7-40a5-8f8a-cc1e886a1833,3,3,2,5,757e50ee-d738-4b41-a821-8def6c3a02d9,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-5,b371d4e3-57b6-4aef-b05d-57bb480d1f53,10,3,1.5,8,40229c21-534b-4288-b255-95316e208f32,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-6,233a6ba7-5603-4e34-8967-33ba5d95b604,40,3,2.5,40,cfb08991-a5a8-4a5e-8fe5-f29ab0108d45,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-7,29434728-ffeb-4944-bc45-f8be9cdee6f7,20,2.5,1.5,20,cfb08991-a5a8-4a5e-8fe5-f29ab0108d45,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-8,7b11c1e1-bb7f-441e-bc6d-126ad741fc74,10,4,1.5,10,687555ac-029d-405a-b879-c98fcc63bc5d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-9,bb31fc6a-5014-4163-864d-9faa552412f0,5,3,1.5,6,261a4a0e-2696-436a-b9ad-f83ee5f14da8,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-10,fcd56f39-a948-487a-b397-6de8a2c6586e,20,3,2.5,9,bb578d8d-77ea-4823-bca7-e22543310a5a,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-11,4e967e41-35f7-4d68-8066-91574bc58d7e,5,4,3.5,8,d1222471-c8f8-47a4-9315-6c47b28b236e,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-12,7087177c-f0d1-4eec-acd6-f3bb6aab3fcb,3,4,1,6,d1222471-c8f8-47a4-9315-6c47b28b236e,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-13,6186fa52-0195-4411-8d95-f4b487534a7e,17,3,2.5,15,8c422255-a71a-4140-8c2e-c0182fba8e99,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-14,f55e8739-624b-4dd5-8094-463632118b91,50,3,3,40,4b87af0f-092d-4825-a2d2-db2fa8b799e8,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-15,693f92ff-30ae-4eed-97cb-ad371efb071e,25,3,2.5,25,b50b115a-0fb0-401c-98f3-bd0954df2ebf,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-16,017d5e37-86d4-4879-a092-71308be345a4,8,4,3,8,569880f1-bc2a-4936-9460-d3311d619c20,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-17,677ebc39-3d51-4dd3-a416-51fd7d45eeda,9,4,1.5,9,ffc3ad14-4c17-4c28-bc04-870984cd50aa,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-18,1040f540-630d-4291-9b22-c6c77f4128d1,20,3,1,7,bea85e0e-6309-48d3-bdce-66a5844b2d3e,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-19,4b2df4e2-0317-43c0-b6c1-7ccb30b2b530,9,4,2,5,bea85e0e-6309-48d3-bdce-66a5844b2d3e,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-20,e29883be-829c-4ee4-b746-8a0c1667306d,27,4,2.4,8,7e873752-dd61-4fde-95d6-2d4ce741d2db,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-21,6fd5a414-4ba6-4840-8fb7-d1046e213699,6,1,2,7,440aefc0-f471-4adb-a4b5-1a4b54f9c342,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-22,44a27ecb-0afd-43b0-9ce1-85566aeb0683,50,3,2.5,48,8406fb6f-fdd9-40a3-ba52-8b59c6e4f1f2,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-23,a62c4559-8b1a-435b-9402-387121180bbf,50,1.5,,36,8406fb6f-fdd9-40a3-ba52-8b59c6e4f1f2,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-24,4ced36d5-03a9-4cd5-896f-e159c1c58818,6,42,2,8,8406fb6f-fdd9-40a3-ba52-8b59c6e4f1f2,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-25,805bba11-b334-420a-81e0-819e10d9fb9c,40,3,2,30,8406fb6f-fdd9-40a3-ba52-8b59c6e4f1f2,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-26,e29956ec-346c-46d7-875c-36edf6ef1c14,70,8,3.5,200,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-27,d604fb9c-be90-4a3e-9ed9-985a2ef9eaac,24,,1.2,24,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-28,08335028-f482-4342-b5f2-5d4b1d6f9f8c,2,2,1.3,6,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-29,15949283-0c97-4c56-8a89-8ea990b85bab,12,5,2,15,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-30,6e229ade-0382-4a55-83a5-0e409b5e4709,3,4,1,7,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-31,577435ce-b658-4ee2-8d56-518df9a62b7b,45,4,2,50,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-32,3b54ab41-0c5c-46ec-9b04-dc6f860662d8,35,3.5,2,30,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-33,b09f7c2f-c43e-44c7-aff9-81ee46f4c6f3,3,4,1,5,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-34,6d91d1a3-4587-4ff6-9ce9-bf0491cd4cfb,20,6,2,25,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-35,9cb1bb9f-3ec2-456d-a36a-28da54dc6466,4.5,3,2.5,6,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-36,cb635aa7-f03b-411e-b732-b42afb7fe0ff,4,2.5,1.2,10,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-37,8d029332-005d-48d5-9614-5e2b272948d1,3,1.5,1.2,5,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-38,92c89fd1-97ec-4f69-ba73-28b195f0313e,2.5,2,1.5,5,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-39,804a8cf7-9cce-46c5-9f0b-dd5a73cf6dd1,15,5,2,20,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-40,1be4deb2-f0b0-4fc9-b677-ccefd0391f40,18,6,2,22,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-41,37f2f09d-f8e2-4ae8-8ae8-32d087db544d,40,4.5,2,30,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-42,b72e36fa-10e4-45fe-ae41-ae7f98c2490e,4,2.5,1.2,7,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-43,d68cbbe2-ca2b-4d34-a8e8-01f0d3236d58,3.5,2,1,5,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-44,c6bc05a3-b75f-4f51-800a-cc291e70a33a,5,4.5,1.8,5,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-45,442c53a2-df03-4eae-83a4-a482958902b6,45,3.5,2,45,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-46,2ebe3d3f-a92d-467e-95b9-96545c1b88fb,6.5,3,1.5,5,4653b8e6-5a99-4ce8-bcce-280f1283d684,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-47,017f0835-0165-45fe-9358-99cfa39ffaca,37,3.5,1.6,48,4653b8e6-5a99-4ce8-bcce-280f1283d684,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-48,05010cb4-14ff-46fd-b6b4-595047a18455,2.5,2,1,5,4653b8e6-5a99-4ce8-bcce-280f1283d684,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-49,3c1d5f43-a910-4705-8dde-9323589b97de,50,52,,40,4653b8e6-5a99-4ce8-bcce-280f1283d684,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-50,99f64a49-a13d-45a9-8811-2d7ba3936b41,10,5,2,13,24cc5cd9-5d66-471d-9e9b-ce0fe079fc15,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-51,3794fcef-d1b9-40a4-85f0-8ca1ef142b0c,7,4,2.5,10,39acf95d-6054-4e92-ab2a-f1a5b039f368,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-52,229e3d3a-2f03-4682-8bcf-cc24e62ce8cd,4,3,2,5,39acf95d-6054-4e92-ab2a-f1a5b039f368,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-53,8bf69799-3e8c-43bd-9b92-0e21b7b6e8b9,70,3,2,40,39acf95d-6054-4e92-ab2a-f1a5b039f368,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-54,6f78a97f-4635-4224-a48d-f55f37c4d7b7,1.5,8,0.8,10,b3947d2d-5711-49ea-a3eb-c83d48b094c2,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-55,27326c94-94c4-410a-b0bb-0e8ba4e992b9,4.6,2.75,1.1,12,b85c2f64-782a-48bc-86b3-cfd887ad4d34,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-56,2c585431-f9e9-4adb-9acc-420ff318f196,10,5,0.8,12,b85c2f64-782a-48bc-86b3-cfd887ad4d34,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-57,656ac105-6115-4d05-8350-d56a73371bf8,6.5,3.2,1.2,8,7c9822b9-9bcf-4d33-88d5-685b2fc94ba4,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-58,c1e5f0ee-11b2-4972-aa59-4725b1406d54,25,5,2,30,7c9822b9-9bcf-4d33-88d5-685b2fc94ba4,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-59,61da9c2d-8fc2-45dc-8453-3d6123a70c71,10,7,1.5,12,82973cea-5f87-48d0-86a2-0bfc98b92396,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-60,762100bf-4684-4db1-bdd9-5e07b21ce327,12,5,2,8,f64ee2e2-06e2-4fab-9945-7540e9e67e73,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-61,36b5f792-a346-409b-9973-b58f9ff87154,6.5,5,1.75,6,2442c156-3cb3-4754-9ecc-552f6f8402dd,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-62,106cceda-27b2-4c9e-baf0-05f11ff13c89,6,3,2,5,438b3d3b-6381-4f18-bbbc-780dbbcd8eca,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-63,f2008e7b-4696-4be9-a3ff-dd52dd305ff2,20,6,2,16,438b3d3b-6381-4f18-bbbc-780dbbcd8eca,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-64,20d5dcbe-90ad-43c6-9f73-167f5b625e02,20,10,1.5,9,438b3d3b-6381-4f18-bbbc-780dbbcd8eca,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-65,7118d062-f532-4173-8621-378dfcef5cb7,9,3.5,1.5,6,bb2f566c-36c6-491e-a861-328f0ee29e8f,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-66,93127659-24f4-4118-9b76-a2bdb7073dda,6,4.5,1.5,5,a0983de2-6f67-49cc-9e2e-1b7f49585e4b,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-67,719f9f7c-61e2-42a0-a3a1-08ba57f7e15f,9,4.5,1.5,9,fd662252-7c42-41d9-a434-70136bc40945,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-68,55949e30-0c65-4fd5-9599-9d774587da5c,8,4,1.5,6,66777658-10b1-4924-8b4a-1948425fe9d8,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-69,7f192ea8-7f61-453c-964a-7a031ebe5792,6.5,3,1,5,66777658-10b1-4924-8b4a-1948425fe9d8,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-70,1db31a64-b1b2-477f-a1ff-9f4aa48e3441,7.5,3,1.5,8,a4d91bd5-af4b-4be2-88bc-5cb478b5cc1c,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-71,32c8369e-ac31-49cb-a757-1d6be3a6c8b7,7,2,2,5,a4d91bd5-af4b-4be2-88bc-5cb478b5cc1c,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-72,d261c485-af93-4d0f-8e4f-8d8a7d923a40,28,5,2,16,6bc0f5cc-0c56-485e-9921-000c82e51bb5,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-73,4d4f4b3c-dd6f-4ac1-887f-0ee0d935a79e,9.5,3.5,1.5,6,05884d46-d9a9-4397-880d-4dfd48fe5ea6,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-74,2072adbc-fd0b-4160-839b-884c1dfa5e78,8,3,2,5,63991285-092f-4995-8ae5-878d8279d3ac,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-75,d594f3c9-eeda-43cf-b166-af7943153985,11,4,1.5,7,63991285-092f-4995-8ae5-878d8279d3ac,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-76,325a770d-b1f1-48f2-876b-79b4c2d0daa6,10,5,1,10,d7f43156-e784-4192-a0e8-cfa121aa4e3c,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-77,d371d822-a19f-4dc2-8238-44c688d54608,9,3,2,6,d7f43156-e784-4192-a0e8-cfa121aa4e3c,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-78,0006cbc7-6486-4c04-ab13-a4201181f3b1,5.5,2,1,5,d7224532-d216-4a92-bcc8-bd37244b6798,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-79,fa7440fc-bc22-4b0b-b544-75f60d2f532b,25,4,2.25,7,d7224532-d216-4a92-bcc8-bd37244b6798,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-80,fe5cfb99-d8af-4fcd-b673-9d1de1a42e1c,8,3,1.5,,4524f94d-15f7-4480-83a4-2c00cfc5b6ac,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-81,e089e2c0-fd36-4716-a696-3bff588134b1,41,4,1.5,50,8195ea4f-568b-475b-8fb0-a4e40ac38ac4,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-82,1ef8573e-3b8f-4854-92b0-45bc8177929e,20,3.25,1.75,15,3f7a11ee-b57c-468d-838a-c527f38b2b92,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-83,8034536e-1b35-4a36-be7f-55c3a157b9f1,20,4,1.75,20,3f7a11ee-b57c-468d-838a-c527f38b2b92,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-84,00a572a5-f70b-4b26-8ae6-b9c79d20dad0,5,2,1,6,2a029b66-8aa9-4dc5-bdda-bc3885b2d8e1,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-85,4efcdc38-8d51-4650-a2dd-b297d6123467,7,2.75,1.5,6,ee8a4be3-a79d-4605-b52b-ec21b61d0d46,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-86,7ff40911-8af7-4696-b73f-cdac42020315,5,3,1,8,922bc1f9-f210-443f-a385-d492269ab28f,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-87,908992ff-2232-49e4-bcc9-726c8a30f1cd,11,3,1.5,15,922bc1f9-f210-443f-a385-d492269ab28f,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
-88,69253861-85ec-43c8-8b66-87a51dfc97fb,15,6,1,10,317d4bcd-6126-456a-a4db-3dcfbf23765b,8/13/2019 8:52:27 PM,richie@qcinc.org,8/13/2019 8:52:27 PM,richie@qcinc.org
+1,47fd10b7-f0f0-464d-bfdf-e7296ea638f0,5,4.5,2,6,fb80e367-7772-435c-86ee-89aee92186e5,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+2,5175c022-a0fc-40e5-b8c0-5a65af4f3fee,15,2,2,11,bfb65222-8df0-491c-a935-c4fb3191d5fc,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+3,d2f655d3-e161-4c89-a604-3f8d578df258,10,6,2,15,9d707e31-a613-4288-9cf4-a8e16c5a321a,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+4,88c0b070-96c7-40a5-8f8a-cc1e886a1833,3,3,2,5,757e50ee-d738-4b41-a821-8def6c3a02d9,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+5,b371d4e3-57b6-4aef-b05d-57bb480d1f53,10,3,1.5,8,40229c21-534b-4288-b255-95316e208f32,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+6,233a6ba7-5603-4e34-8967-33ba5d95b604,40,3,2.5,40,cfb08991-a5a8-4a5e-8fe5-f29ab0108d45,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+7,29434728-ffeb-4944-bc45-f8be9cdee6f7,20,2.5,1.5,20,cfb08991-a5a8-4a5e-8fe5-f29ab0108d45,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+8,7b11c1e1-bb7f-441e-bc6d-126ad741fc74,10,4,1.5,10,687555ac-029d-405a-b879-c98fcc63bc5d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+9,bb31fc6a-5014-4163-864d-9faa552412f0,5,3,1.5,6,261a4a0e-2696-436a-b9ad-f83ee5f14da8,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+10,fcd56f39-a948-487a-b397-6de8a2c6586e,20,3,2.5,9,bb578d8d-77ea-4823-bca7-e22543310a5a,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+11,4e967e41-35f7-4d68-8066-91574bc58d7e,5,4,3.5,8,d1222471-c8f8-47a4-9315-6c47b28b236e,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+12,7087177c-f0d1-4eec-acd6-f3bb6aab3fcb,3,4,1,6,d1222471-c8f8-47a4-9315-6c47b28b236e,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+13,6186fa52-0195-4411-8d95-f4b487534a7e,17,3,2.5,15,8c422255-a71a-4140-8c2e-c0182fba8e99,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+14,f55e8739-624b-4dd5-8094-463632118b91,50,3,3,40,4b87af0f-092d-4825-a2d2-db2fa8b799e8,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+15,693f92ff-30ae-4eed-97cb-ad371efb071e,25,3,2.5,25,b50b115a-0fb0-401c-98f3-bd0954df2ebf,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+16,017d5e37-86d4-4879-a092-71308be345a4,8,4,3,8,569880f1-bc2a-4936-9460-d3311d619c20,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+17,677ebc39-3d51-4dd3-a416-51fd7d45eeda,9,4,1.5,9,ffc3ad14-4c17-4c28-bc04-870984cd50aa,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+18,1040f540-630d-4291-9b22-c6c77f4128d1,20,3,1,7,bea85e0e-6309-48d3-bdce-66a5844b2d3e,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+19,4b2df4e2-0317-43c0-b6c1-7ccb30b2b530,9,4,2,5,bea85e0e-6309-48d3-bdce-66a5844b2d3e,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+20,e29883be-829c-4ee4-b746-8a0c1667306d,27,4,2.4,8,7e873752-dd61-4fde-95d6-2d4ce741d2db,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+21,6fd5a414-4ba6-4840-8fb7-d1046e213699,6,1,2,7,440aefc0-f471-4adb-a4b5-1a4b54f9c342,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+22,44a27ecb-0afd-43b0-9ce1-85566aeb0683,50,3,2.5,48,8406fb6f-fdd9-40a3-ba52-8b59c6e4f1f2,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+23,a62c4559-8b1a-435b-9402-387121180bbf,50,1.5,2,36,8406fb6f-fdd9-40a3-ba52-8b59c6e4f1f2,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+24,4ced36d5-03a9-4cd5-896f-e159c1c58818,6,42,2,8,8406fb6f-fdd9-40a3-ba52-8b59c6e4f1f2,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+25,805bba11-b334-420a-81e0-819e10d9fb9c,40,3,2,30,8406fb6f-fdd9-40a3-ba52-8b59c6e4f1f2,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+26,e29956ec-346c-46d7-875c-36edf6ef1c14,70,8,3.5,200,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+27,d604fb9c-be90-4a3e-9ed9-985a2ef9eaac,24,,1.2,24,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+28,08335028-f482-4342-b5f2-5d4b1d6f9f8c,2,2,1.3,6,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+29,15949283-0c97-4c56-8a89-8ea990b85bab,12,5,2,15,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+30,6e229ade-0382-4a55-83a5-0e409b5e4709,3,4,1,7,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+31,577435ce-b658-4ee2-8d56-518df9a62b7b,45,4,2,50,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+32,3b54ab41-0c5c-46ec-9b04-dc6f860662d8,35,3.5,2,30,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+33,b09f7c2f-c43e-44c7-aff9-81ee46f4c6f3,3,4,1,5,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+34,6d91d1a3-4587-4ff6-9ce9-bf0491cd4cfb,20,6,2,25,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+35,9cb1bb9f-3ec2-456d-a36a-28da54dc6466,4.5,3,2.5,6,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+36,cb635aa7-f03b-411e-b732-b42afb7fe0ff,4,2.5,1.2,10,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+37,8d029332-005d-48d5-9614-5e2b272948d1,3,1.5,1.2,5,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+38,92c89fd1-97ec-4f69-ba73-28b195f0313e,2.5,2,1.5,5,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+39,804a8cf7-9cce-46c5-9f0b-dd5a73cf6dd1,15,5,2,20,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+40,1be4deb2-f0b0-4fc9-b677-ccefd0391f40,18,6,2,22,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+41,37f2f09d-f8e2-4ae8-8ae8-32d087db544d,40,4.5,2,30,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+42,b72e36fa-10e4-45fe-ae41-ae7f98c2490e,4,2.5,1.2,7,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+43,d68cbbe2-ca2b-4d34-a8e8-01f0d3236d58,3.5,2,1,5,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+44,c6bc05a3-b75f-4f51-800a-cc291e70a33a,5,4.5,1.8,5,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+45,442c53a2-df03-4eae-83a4-a482958902b6,45,3.5,2,45,c66e905e-8e66-40c0-96bd-ea8558c61a9d,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+46,2ebe3d3f-a92d-467e-95b9-96545c1b88fb,6.5,3,1.5,5,4653b8e6-5a99-4ce8-bcce-280f1283d684,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+47,017f0835-0165-45fe-9358-99cfa39ffaca,37,3.5,1.6,48,4653b8e6-5a99-4ce8-bcce-280f1283d684,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+48,05010cb4-14ff-46fd-b6b4-595047a18455,2.5,2,1,5,4653b8e6-5a99-4ce8-bcce-280f1283d684,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+49,3c1d5f43-a910-4705-8dde-9323589b97de,50,5,2,40,4653b8e6-5a99-4ce8-bcce-280f1283d684,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+50,99f64a49-a13d-45a9-8811-2d7ba3936b41,10,5,2,13,24cc5cd9-5d66-471d-9e9b-ce0fe079fc15,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+51,3794fcef-d1b9-40a4-85f0-8ca1ef142b0c,7,4,2.5,10,39acf95d-6054-4e92-ab2a-f1a5b039f368,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+52,229e3d3a-2f03-4682-8bcf-cc24e62ce8cd,4,3,2,5,39acf95d-6054-4e92-ab2a-f1a5b039f368,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+53,8bf69799-3e8c-43bd-9b92-0e21b7b6e8b9,70,3,2,40,39acf95d-6054-4e92-ab2a-f1a5b039f368,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+54,6f78a97f-4635-4224-a48d-f55f37c4d7b7,1.5,8,0.8,10,b3947d2d-5711-49ea-a3eb-c83d48b094c2,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+55,27326c94-94c4-410a-b0bb-0e8ba4e992b9,4.6,2.75,1.1,12,b85c2f64-782a-48bc-86b3-cfd887ad4d34,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+56,2c585431-f9e9-4adb-9acc-420ff318f196,10,5,0.8,12,b85c2f64-782a-48bc-86b3-cfd887ad4d34,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+57,656ac105-6115-4d05-8350-d56a73371bf8,6.5,3.2,1.2,8,7c9822b9-9bcf-4d33-88d5-685b2fc94ba4,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+58,c1e5f0ee-11b2-4972-aa59-4725b1406d54,25,5,2,30,7c9822b9-9bcf-4d33-88d5-685b2fc94ba4,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+59,61da9c2d-8fc2-45dc-8453-3d6123a70c71,10,7,1.5,12,82973cea-5f87-48d0-86a2-0bfc98b92396,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+60,762100bf-4684-4db1-bdd9-5e07b21ce327,12,5,2,8,f64ee2e2-06e2-4fab-9945-7540e9e67e73,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+61,36b5f792-a346-409b-9973-b58f9ff87154,6.5,5,1.75,6,2442c156-3cb3-4754-9ecc-552f6f8402dd,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+62,106cceda-27b2-4c9e-baf0-05f11ff13c89,6,3,2,5,438b3d3b-6381-4f18-bbbc-780dbbcd8eca,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+63,f2008e7b-4696-4be9-a3ff-dd52dd305ff2,20,6,2,16,438b3d3b-6381-4f18-bbbc-780dbbcd8eca,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+64,20d5dcbe-90ad-43c6-9f73-167f5b625e02,20,10,1.5,9,438b3d3b-6381-4f18-bbbc-780dbbcd8eca,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+65,7118d062-f532-4173-8621-378dfcef5cb7,9,3.5,1.5,6,bb2f566c-36c6-491e-a861-328f0ee29e8f,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+66,93127659-24f4-4118-9b76-a2bdb7073dda,6,4.5,1.5,5,a0983de2-6f67-49cc-9e2e-1b7f49585e4b,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+67,719f9f7c-61e2-42a0-a3a1-08ba57f7e15f,9,4.5,1.5,9,fd662252-7c42-41d9-a434-70136bc40945,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+68,55949e30-0c65-4fd5-9599-9d774587da5c,8,4,1.5,6,66777658-10b1-4924-8b4a-1948425fe9d8,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+69,7f192ea8-7f61-453c-964a-7a031ebe5792,6.5,3,1,5,66777658-10b1-4924-8b4a-1948425fe9d8,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+70,1db31a64-b1b2-477f-a1ff-9f4aa48e3441,7.5,3,1.5,8,a4d91bd5-af4b-4be2-88bc-5cb478b5cc1c,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+71,32c8369e-ac31-49cb-a757-1d6be3a6c8b7,7,2,2,5,a4d91bd5-af4b-4be2-88bc-5cb478b5cc1c,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+72,d261c485-af93-4d0f-8e4f-8d8a7d923a40,28,5,2,16,6bc0f5cc-0c56-485e-9921-000c82e51bb5,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+73,4d4f4b3c-dd6f-4ac1-887f-0ee0d935a79e,9.5,3.5,1.5,6,05884d46-d9a9-4397-880d-4dfd48fe5ea6,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+74,2072adbc-fd0b-4160-839b-884c1dfa5e78,8,3,2,5,63991285-092f-4995-8ae5-878d8279d3ac,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+75,d594f3c9-eeda-43cf-b166-af7943153985,11,4,1.5,7,63991285-092f-4995-8ae5-878d8279d3ac,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+76,325a770d-b1f1-48f2-876b-79b4c2d0daa6,10,5,1,10,d7f43156-e784-4192-a0e8-cfa121aa4e3c,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+77,d371d822-a19f-4dc2-8238-44c688d54608,9,3,2,6,d7f43156-e784-4192-a0e8-cfa121aa4e3c,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+78,0006cbc7-6486-4c04-ab13-a4201181f3b1,5.5,2,1,5,d7224532-d216-4a92-bcc8-bd37244b6798,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+79,fa7440fc-bc22-4b0b-b544-75f60d2f532b,25,4,2.25,7,d7224532-d216-4a92-bcc8-bd37244b6798,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+80,fe5cfb99-d8af-4fcd-b673-9d1de1a42e1c,8,3,1.5,,4524f94d-15f7-4480-83a4-2c00cfc5b6ac,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+81,e089e2c0-fd36-4716-a696-3bff588134b1,41,4,1.5,50,8195ea4f-568b-475b-8fb0-a4e40ac38ac4,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+82,1ef8573e-3b8f-4854-92b0-45bc8177929e,20,3.25,1.75,15,3f7a11ee-b57c-468d-838a-c527f38b2b92,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+83,8034536e-1b35-4a36-be7f-55c3a157b9f1,20,4,1.75,20,3f7a11ee-b57c-468d-838a-c527f38b2b92,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+84,00a572a5-f70b-4b26-8ae6-b9c79d20dad0,5,2,1,6,2a029b66-8aa9-4dc5-bdda-bc3885b2d8e1,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+85,4efcdc38-8d51-4650-a2dd-b297d6123467,7,2.75,1.5,6,ee8a4be3-a79d-4605-b52b-ec21b61d0d46,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+86,7ff40911-8af7-4696-b73f-cdac42020315,5,3,1,8,922bc1f9-f210-443f-a385-d492269ab28f,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+87,908992ff-2232-49e4-bcc9-726c8a30f1cd,11,3,1.5,15,922bc1f9-f210-443f-a385-d492269ab28f,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org
+88,69253861-85ec-43c8-8b66-87a51dfc97fb,15,6,1,10,317d4bcd-6126-456a-a4db-3dcfbf23765b,8/13/2019 20:52,richie@qcinc.org,8/13/2019 20:52,richie@qcinc.org

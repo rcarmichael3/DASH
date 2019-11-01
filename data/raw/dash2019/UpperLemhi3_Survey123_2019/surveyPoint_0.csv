@@ -1,2 +1,2 @@
-ObjectID,GlobalID,Survey Time,Site Name,Survey Date,Survey Crew,Conductivity (ms),CreationDate,Creator,EditDate,Editor,x,y
-2,79f1c5ac-5f9c-423b-8447-88b6e968f24a,10:58,UpperLemhi3_2019,6/16/2019 6:00,Tulley Mackey,,,,,,,
+ObjectID	GlobalID	Survey Time	Site Name	Survey Date	Survey Crew	Conductivity (ms)	CreationDate	Creator	EditDate	Editor	x	y
+2	79f1c5ac-5f9c-423b-8447-88b6e968f24a	10:58	Lemhi3_2019	6/16/2019 6:00	"Tulley Mackey,Jared Barker, Travis Earl"		6/26/2019 23:16	richie@qcinc.org	6/26/2019 23:16	richie@qcinc.org	0	0

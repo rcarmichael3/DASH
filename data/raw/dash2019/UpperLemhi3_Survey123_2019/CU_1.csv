@@ -1,5 +1,5 @@
 ObjectID,GlobalID,Channel Unit Type,Channel Unit Number,Channel Segment Number,Thalweg Exit Depth (m),Overhanging Cover,Aquatic Vegetation,Woody Debris Cover,Artificial Cover,Total No Cover,Sand/Fines 2mm,Gravel 2-64mm,Cobble 64-256mm,Boulder 256mm,Pebble 1 (mm),Pebble 2 (mm),Pebble 3 (mm),Pebble 4 (mm),Pebble 5 (mm),Pebble 6 (mm),Pebble 7 (mm),Pebble 8 (mm),Pebble 9 (mm),Pebble 10 (mm),Pebble 11 (mm),Maximum Depth (m),Width 1,Width 2,Width 3,Width 4,Width 5,ParentGlobalID,CreationDate,Creator,EditDate,Editor
-138,487b3386-b31c-4499-91f1-452074d7af84,Run,1,1,0.49,0.1,,0.1,,0.8,40,40,10,,,,,,,,,,,,,0.87,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
+138,487b3386-b31c-4499-91f1-452074d7af84,Run,1,1,0.49,0.1,,0.1,,0.8,40,40,20,,,,,,,,,,,,,0.87,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 139,89c7fc85-960a-4576-aeeb-ec6966647a54,Pool,2,1,0.28,0.4,,0.3,,0.6,40,60,,,,,,,,,,,,,,0.82,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 140,318b703e-2068-44a4-971e-53daefd5d1c3,Riffle,3,1,0.28,0.2,,,,0.8,40,50,10,,,,,,,,,,,,,0.59,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 141,d37b77d8-c6d6-4b9f-9e03-532a8f79c990,SSC,4,2,0.2,0.1,,,,0.9,90,10,,,,,,,,,,,,,,0.2,3,4.4,8,8.25,10.36,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
@@ -47,7 +47,7 @@ ObjectID,GlobalID,Channel Unit Type,Channel Unit Number,Channel Segment Number,T
 183,5173602e-022a-4d4f-a2c6-1ee6b1a12456,Riffle,46,1,1.08,0.1,0.2,,,0.8,,,,,54.5,13.65,6.85,27.3,27.3,13.65,38.5,19.3,54.5,38.5,27.3,1.08,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 184,5b22344e-9ed7-4e87-9eb3-7e928180475c,Run,47,1,0.78,0.2,,,,0.8,40,60,,,,,,,,,,,,,,1.08,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 185,82ced8ad-89c3-48e0-a024-e42b7a97d1c7,Pool,48,1,0.62,0.3,,0.1,,0.7,50,50,,,,,,,,,,,,,,1.6,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
-186,40b2cd1e-fadf-4801-99a7-3bcadf0ae5d8,Riffle,49,1,0.84,,0.1,,,0.9,30,50,10,,,,,,,,,,,,,0.84,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
+186,40b2cd1e-fadf-4801-99a7-3bcadf0ae5d8,Riffle,49,1,0.84,,0.1,,,0.9,30,50,20,,,,,,,,,,,,,0.84,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 187,5209baa9-5e5e-47e7-ae8e-f9e5bdcd2fc3,Pool,50,1,0.41,,0.1,,,0.9,40,60,,,,,,,,,,,,,,0.86,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 188,9bf35520-09ca-4b90-a192-d1bfde963fd1,Riffle,51,1,0.51,,0.3,,,0.7,,,,,19.3,38.5,54.5,27.3,109,19.3,77,54.5,9.65,13.65,1.03,0.51,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 189,91353b94-e289-4605-abf2-e95da5440a24,Pool,52,1,0.58,0.2,0.1,,,0.7,40,50,10,,,,,,,,,,,,,1.12,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
@@ -85,8 +85,8 @@ ObjectID,GlobalID,Channel Unit Type,Channel Unit Number,Channel Segment Number,T
 221,48d39552-ca0d-4b2a-bf0a-da0ffd91a77a,Riffle,84,1,0.56,0.1,,0.1,,0.8,30,60,10,,,,,,,,,,,,,0.88,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 222,bea57a35-f306-4f42-bb23-ea5042817a09,Pool,85,1,0.7,0.1,,0.1,,0.9,40,50,10,,,,,,,,,,,,,2.3,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 223,2282ac21-689e-47e8-a5b9-71125f48b134,Riffle,86,1,0.64,0.1,,0.1,,0.9,30,60,10,,,,,,,,,,,,,0.85,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
-224,22bc533b-857a-41bc-b399-e847808495cd,Pool,87,1,0.68,0.1,,0.1,,0.9,30,60,70,,,,,,,,,,,,,1.12,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
-225,68a3dd50-0bda-4b73-9132-3dc01dbe5aab,Riffle,88,1,0.99,100,,,,,30,50,20,,,,,,,,,,,,,0.99,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
+224,22bc533b-857a-41bc-b399-e847808495cd,Pool,87,1,0.68,0.1,,0.1,,0.9,30,60,10,,,,,,,,,,,,,1.12,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
+225,68a3dd50-0bda-4b73-9132-3dc01dbe5aab,Riffle,88,1,0.99,100,,,,0,30,50,20,,,,,,,,,,,,,0.99,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 226,48e2808e-195a-4eee-83b4-cc0dec0b6404,Pool,89,1,0.43,0.1,,0.1,,0.9,50,40,10,,,,,,,,,,,,,1.25,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 227,40703198-4e3f-445e-9205-b632ec9fe1f3,Riffle,90,1,0.45,,,,,,30,60,10,,,,,,,,,,,,,0.45,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 228,faa69627-b688-4482-8de8-d448e8aa8bef,Pool,91,1,,,,,,100,40,60,,,,,,,,,,,,,,1.5,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
@@ -98,7 +98,7 @@ ObjectID,GlobalID,Channel Unit Type,Channel Unit Number,Channel Segment Number,T
 234,f18518d1-f406-4bf6-8bc4-6b39503c1ebe,Riffle,97,1,0.48,0.2,,0.2,,0.8,20,70,10,,,,,,,,,,,,,1.13,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 235,e8546696-8b4f-40f3-9c35-a3e3e272151f,Pool,98,1,0.45,0.1,,0.1,,0.8,30,60,10,,,,,,,,,,,,,1.4,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 236,2055f2a9-4009-4121-b7ab-ab65063c5dd2,Riffle,99,1,0.5,,,,,100,30,60,10,,,,,,,,,,,,,0.7,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
-237,d79e91f4-04da-4b53-844d-5464730c4a11,Pool,100,1,0.5,0.1,,0.1,,,30,70,,,,,,,,,,,,,,1.09,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
+237,d79e91f4-04da-4b53-844d-5464730c4a11,Pool,100,1,0.5,0.1,,0.1,,0.8,30,70,,,,,,,,,,,,,,1.09,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 238,d1d266b0-e09b-4ee7-861d-bb0c8cc6f30e,Riffle,101,1,0.42,,,,,100,20,70,10,,,,,,,,,,,,,0.77,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 239,02735081-dfa6-4f7b-b94f-57f94cc0c10d,Pool,102,1,0.5,,,0.1,,0.9,20,80,,,,,,,,,,,,,,1.25,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
 240,3fb55853-556c-4481-b651-f03fafe8c110,Riffle,103,1,0.9,0.1,,,,0.9,40,60,,,,,,,,,,,,,,0.9,,,,,,79f1c5ac-5f9c-423b-8447-88b6e968f24a,6/26/2019 23:16,richie@qcinc.org,6/26/2019 23:16,richie@qcinc.org
