@@ -10,11 +10,15 @@ library(caret)
 library(snow)
 
 setwd("F:/Upper Lemhi_Beyeler_Tyler")
-band_6 <- raster("UpperLemhi_Beyeler_Tyler-0-0.tif", band = 6)
-band_5 <- raster("UpperLemhi_Beyeler_Tyler-0-0.tif", band = 5)
-band_4 <- raster("UpperLemhi_Beyeler_Tyler-0-0.tif", band = 4)
-img_stack <- stack(band_4, band_5,band_6)
-img <- brick(img_stack)
+
+
+
+img <- brick("Transform_10cm_b345.tif")
+NAvalue(img)
+NAvalue(img) <- 1
+NAvalue(img)
+
+
 
 names(img) <- paste0("B", c(4:6)) 
 
@@ -45,7 +49,7 @@ for (i in 1:length(unique(trainData[[responseCol]]))){
 
 
 
-nsamples <- 1000
+nsamples <- 2000
 sdfAll <- dfAll[sample(1:nrow(dfAll), nsamples), ]
 
 
