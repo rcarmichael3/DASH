@@ -1,0 +1,9 @@
+ObjectID	GlobalID	Undercut Number	Location	Length (m)	Width 25% (m)	Width 50% (m)	Width 75% (m)	ParentGlobalID	CreationDate	Creator	EditDate	Editor
+1	87386697-a591-404c-84d6-353499df9334	1	Right_Bank	3.5	0.3	0.32	0.5	ab51c6c2-5d59-4856-b341-69f10861ef9a	6/26/2019 23:17	richie@qcinc.org	6/26/2019 23:17	richie@qcinc.org
+2	54de8268-d30d-4af5-a651-61c55f94a860	2	Left_Bank	7.3	0.35	0.42	0.3	ab51c6c2-5d59-4856-b341-69f10861ef9a	6/26/2019 23:17	richie@qcinc.org	6/26/2019 23:17	richie@qcinc.org
+3	44af3f88-d26c-4bb7-89b1-9cde9261cf48	3	Left_Bank	5.2	0.36	0.31	0.5	ab51c6c2-5d59-4856-b341-69f10861ef9a	6/26/2019 23:17	richie@qcinc.org	6/26/2019 23:17	richie@qcinc.org
+4	1ff310fc-10c5-4b4d-83db-a598ce596142	1	Right_Bank	8.4	0.32	0.44	0.35	d507b92f-57a3-4052-96ab-c008813703c3	6/26/2019 23:17	richie@qcinc.org	6/26/2019 23:17	richie@qcinc.org
+5	a75bd997-8fc9-4ce9-8dea-6e23e216f170	1	Left_Bank	17	0.36	0.56	0.27	bc03b5c3-57bb-41a4-904a-8b75942bd89c	6/26/2019 23:17	richie@qcinc.org	6/26/2019 23:17	richie@qcinc.org
+6	2032377e-c688-44f7-aa18-d323616f36e5	1	Left_Bank	6.8	0.4	0.28	0.26	a41b66b2-ef08-4e64-be0b-31a79b7a8eb0	6/26/2019 23:17	richie@qcinc.org	6/26/2019 23:17	richie@qcinc.org
+7	eafb4022-7b37-4f50-a365-92a4d478827b	1	Right_Bank	9.5	0.31	0.38	0.34	959510aa-53b1-4125-b151-5b3c03eb6214	6/26/2019 23:17	richie@qcinc.org	6/26/2019 23:17	richie@qcinc.org
+8	b8cfe0e8-f414-44a0-9c66-ba943fb519b4	1	Right_Bank	4.5	0.16	0.3	0.4	5fe76bf6-338a-4378-8848-10603c4625c6	6/26/2019 23:17	richie@qcinc.org	6/26/2019 23:17	richie@qcinc.org

@@ -1,0 +1,20 @@
+﻿ObjectID,GlobalID,Large Wood Number,Length (m),Diameter (m),Wet?,Channel Forming?,Ballasted?,ParentGlobalID,CreationDate,Creator,EditDate,Editor
+1,ce7d897d-b026-4182-a632-33d0d8e16876,1,5,.25,Yes,Yes,Yes,10678f2e-ed5c-4be4-a9e0-4cb7971669d6,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+2,6ceb8041-3877-4579-b0d5-eda90e23ff29,2,5,.25,Yes,Yes,Yes,10678f2e-ed5c-4be4-a9e0-4cb7971669d6,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+3,baa36edb-6bc8-4fd1-8549-c75e86a993ae,3,2,.32,No,No,Yes,10678f2e-ed5c-4be4-a9e0-4cb7971669d6,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+4,e106aa76-271c-4715-aa9c-8645b49abece,4,3,.22,Yes,No,Yes,10678f2e-ed5c-4be4-a9e0-4cb7971669d6,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+5,0309a672-9121-4668-a0e5-2f3091faa390,1,4,.35,Yes,Yes,Yes,f3f95b62-2dcf-40d7-a390-525e86061c7b,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+6,5fba921d-6c31-48ca-8705-a9c833681a08,2,4,.35,Yes,Yes,Yes,f3f95b62-2dcf-40d7-a390-525e86061c7b,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+7,d761a3d0-d033-4a88-93b2-7c05d7faf870,1,1.75,.4,Yes,Yes,No,60116a69-fd56-4eb0-ad62-3ee5b0b9532e,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+8,46126c7c-1016-42e6-95a1-78e7cf0e0b62,1,5,.57,Yes,No,Yes,7d715197-7673-483a-a319-56bb688cc878,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+9,9300cc8a-9909-4d54-a750-c84d87b307ba,2,4,.32,Yes,Yes,Yes,7d715197-7673-483a-a319-56bb688cc878,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+10,d272d02e-66af-414d-b28a-fbd90b46ec7e,3,3.75,.6,Yes,Yes,Yes,7d715197-7673-483a-a319-56bb688cc878,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+11,d14e510d-d8b9-4176-b4d9-a362451a0481,4,3.5,.35,Yes,Yes,Yes,7d715197-7673-483a-a319-56bb688cc878,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+12,57460cf0-bde9-4981-adb4-c9693c37ebc7,1,4,.4,Yes,Yes,Yes,c4e86ba4-8ba3-4b9d-9b59-5f2a90579cca,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+13,ea6e9f88-e582-4a6e-b73c-9e99ef72fd69,2,4,.4,Yes,Yes,Yes,c4e86ba4-8ba3-4b9d-9b59-5f2a90579cca,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+14,781945d7-6dcb-4291-95c6-f3d5417cdca6,1,9,.17,Yes,Yes,Yes,8d22c9f8-0eb5-4585-b10d-f8fe63bc0dfc,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+15,000aa204-8bdf-4b7c-a018-2fbe147dc051,2,2,.2,Yes,Yes,Yes,8d22c9f8-0eb5-4585-b10d-f8fe63bc0dfc,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+16,6f4394ea-1dda-49eb-a274-aee658a0f966,3,2,.25,Yes,No,Yes,8d22c9f8-0eb5-4585-b10d-f8fe63bc0dfc,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+17,1cf1a6c9-4922-4c12-b436-e3801e61e954,1,6,.52,Yes,Yes,Yes,5109b85c-b4ea-4020-b211-05c3275a471c,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+18,1bd20b69-c9c8-45f9-b667-a548f8d3812e,2,4,.52,Yes,Yes,Yes,5109b85c-b4ea-4020-b211-05c3275a471c,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org
+19,d36e4791-6c44-43a9-930e-9e0005413c86,1,12,.52,Yes,No,Yes,cc58fa22-b133-4f4e-a788-751435767652,10/7/2019 9:38:53 PM,richie@qcinc.org,10/7/2019 9:38:53 PM,richie@qcinc.org

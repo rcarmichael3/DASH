@@ -1,0 +1,9 @@
+﻿ObjectID,GlobalID,Undercut Number,Location,Length (m),Width 25% (m),Width 50% (m),Width 75% (m),ParentGlobalID,CreationDate,Creator,EditDate,Editor
+1,b1f9e1d6-8ad3-4c88-bbc3-27401c1afb25,1,Right_Bank,1.7,0.45,0.5,0.43,cf3aec15-2421-4068-9869-0466eb7c50e9,8/14/2019 20:41,richie@qcinc.org,8/14/2019 20:41,richie@qcinc.org
+2,d1b3dea4-53cb-47a0-aa83-1a3b8865ce26,1,Left_Bank,2.5,0.3,0.82,0.6,fadeaf8f-a567-4fbf-8017-58ae27f959ba,8/14/2019 20:41,richie@qcinc.org,8/14/2019 20:41,richie@qcinc.org
+3,989fb422-2516-411f-9f21-3f8dea9dc243,1,Left_Bank,5,0.69,0.75,0.66,d4eee8bf-d32f-47cb-8a7d-3ab0df0f5399,8/14/2019 20:41,richie@qcinc.org,8/14/2019 20:41,richie@qcinc.org
+4,81f2a8d7-d210-42ad-9566-d4706011f590,1,Left_Bank,2.9,0.65,0.42,0.36,0b6e4572-b0d2-4272-816e-34cb2a025a90,8/14/2019 20:43,richie@qcinc.org,8/14/2019 20:43,richie@qcinc.org
+5,34f8f182-974c-4aa7-bb8f-49864a469910,1,Right_Bank,4.25,0.4,0.46,0.28,726fe634-9bd9-400c-8c7d-8de70f57e4e1,8/14/2019 20:40,richie@qcinc.org,8/14/2019 20:40,richie@qcinc.org
+6,b758c1aa-e40f-49fa-9cb1-8d575bae4261,1,Right_Bank,6,0.9,1.5,1,c4dc16a1-3935-46db-a6f8-e3558384c9a1,8/14/2019 20:40,richie@qcinc.org,8/14/2019 20:40,richie@qcinc.org
+7,cf674ede-3086-44af-8f00-c4791d8517fa,1,Left_Bank,5,0.6,0.52,0.48,80816e00-f787-44f4-b77a-88e239dfada2,8/14/2019 20:40,richie@qcinc.org,8/14/2019 20:40,richie@qcinc.org
+8,bb5a9413-e259-4de8-8f57-ab4adfd2ca73,1,Left_Bank,1.75,0.56,0.5,0.4,056fbfd5-207a-4b4a-b947-85a16d58394d,8/14/2019 20:40,richie@qcinc.org,8/14/2019 20:40,richie@qcinc.org
