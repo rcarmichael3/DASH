@@ -6,12 +6,13 @@
 
 #-----------------------------------------------------------------
 # load needed libraries
+library(raster)
 library(tidyverse)
 library(ggplot2)
 library(sf)
 library(sp)
 library(usethis)
-library(raster)
+library(rgeos)
 
 #-----------------------------------------------------------------
 # read in data
@@ -22,8 +23,14 @@ lower_lemhi_poly  = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_Metric
 pahs_line         = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/Pah_Line_Fish.shp')
 pahs_poly         = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/Pah_Poly_Fish.shp')
 upper_salmon_line = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Line_Fish.shp')
-upper_salmon_poly = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Poly_Fish.shp')
-
+upper_salmon_poly = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Poly_Fish.shp') 
+# fixing upper salmon 
+upper_salmon_poly <- st_transform(upper_salmon_poly, crs = st_crs(pahs_line))
+upper_salmon_line <- st_transform(upper_salmon_line, crs = st_crs(pahs_line))
+# gaa, norwest, natdist, from Salmon basin only
+gaa               = st_read("C:/Processing/GIS/new_gaa/norwest_gaa_natdist_join/SalmonBasin/SalmonBasin_Join_All.shp")
+gaa_trans <- st_transform(gaa, crs = st_crs(pahs_line)) 
+gaa_trans <- st_zm(gaa_trans)
 # Upper Lemhi
 ggplot() +
   geom_sf(data = upper_lemhi_line) +
@@ -60,9 +67,9 @@ upper_lemhi_poly = upper_lemhi_poly %>%
 upper_lemhi = rbind(upper_lemhi_line, upper_lemhi_poly)
 upper_lemhi = as.data.frame(upper_lemhi)
 
-# remove 'Reach' from lower lemhi data
-lower_lemhi_line = lower_lemhi_line %>%
-  select(-Reach)
+# # remove 'Reach' from lower lemhi data
+# lower_lemhi_line = lower_lemhi_line %>%
+#   select(-Reach)
 
 # merge lower lemhi data
 lower_lemhi_line = lower_lemhi_line %>%
@@ -145,7 +152,7 @@ Slowwater_Pct <- dash2018_cu %>%
 dash2018_fr = dash2018_fr %>%
   left_join(Slowwater_Pct, by = c("SiteNam", "Reach_Nmb")) %>%
   select(-Total_A)
-  
+
 
 ##Side channel percent
 SC_A <- dash2018_cu %>%
@@ -181,26 +188,54 @@ LWFreq_Wet <- dash2018_cu %>%
 dash2018_fr = dash2018_fr %>%
   left_join(LWFreq_Wet, by = c("SiteNam","Reach_Nmb"))
 
-# NatPrin1: from master sample points data
-# DistPrin1: from master sample points data
-# avg_aug_temp: from Norwest data which Richie is joining to master sample points
+# NatPrin1: from gaa lines Salmon basin only
+# DistPrin1: from gaa lines Salmon basin only
+# avg_aug_temp: from gaa lines Salmon basin only. Scenario "02_20"
 
+# Select attributes to join
+gaa_select <- gaa_trans %>%
+  select("S2_02_11", 
+         "dstrb_1",
+         "nt_ft_1",
+         "nt_ft_2")
+# join data to mra sites
+all_cu <- rbind(upper_lemhi_poly, 
+                lower_lemhi_poly, 
+                pahs_poly, 
+                upper_salmon_poly)
+
+gaa_join <- st_join(all_cu, gaa_select) %>%
+  group_by(SiteNam) %>%
+  distinct(Unt_Nmb, .keep_all = TRUE )
 
 # Sin_CL: calculated from imagery for each fish reach
+# read in cl with hab roll column
+
+ll_cl <- st_read("C:/GIT/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/LL_Centerline_sin.shp")
+ul_cl <- st_read("C:/GIT/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/UL_Centerline_sin.shp")
+pah_cl <- st_read("C:/GIT/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/Pah_Centerline_sin.shp")
+us_cl <- st_read("C:/GIT/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Centerline_sin.shp")
+us_cl <- st_transform(us_cl, crs = st_crs(pahs_line))
+all_cl <- rbind(ll_cl,
+                ul_cl,
+                pah_cl,
+                us_cl) %>%
+  mutate_at("Reach_Nmb", funs(replace(., is.na(.), 0))) %>%
+  select(2)
+
+### This calculated sinuosity of a single line, 
+### but needs to be ran through each row of the "all_cl" above.
 LL_CL_sin <- st_read("C:/GIT/DASH/data/raw/dash2018/LowerLemhi/LL_Centerline_Dissolve.shp")
 cl_length <- as.numeric(st_length((LL_CL_sin)))
 
 
 cl_points <- (LL_CL_sin) %>%
   select("Hab_Roll") 
-cl_points <- st_cast(cl_points, "Point")
+cl_points <- st_cast(cl_points, "MULTIPOINT")
 start <- cl_points[1,] 
-start_sp <- as(start, "Spatial")
-1
 end <- cl_points[nrow(cl_points),]
-end_sp <- as(end, Class = "Spatial")
-line <- pointDistance(start, end)
-
+line <- as.numeric(st_distance(start, end))
+sin <- line/cl_length
 # WetBraid
 
 
