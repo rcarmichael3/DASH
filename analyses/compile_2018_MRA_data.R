@@ -111,7 +111,7 @@ dash2018_cu = rbind(upper_lemhi, lower_lemhi, pahs, upper_salmon) %>%
 
 # begin rolling up summaries by fish reach
 dash2018_fr = dash2018_cu %>%
-  group_by(SiteNam, Reach_Nmb) %>%
+  group_by(SiteNam, Hab_Roll) %>%
   summarise(FishCovNone = weighted.mean(No_Cov, SHAPE_A),
             Prc_Grv = weighted.mean(Prc_Grv, SHAPE_A),
             FstTurb_Cnt = length(which(Unt_Typ == 'Riffle' | Unt_Typ == 'Rapid')),
@@ -138,55 +138,55 @@ dash2018_fr = dash2018_cu %>%
 ##Slowwater pct
 Pool_A <- dash2018_cu %>%
   filter(Unt_Typ == "Pool") %>%
-  group_by(SiteNam, Reach_Nmb) %>%
+  group_by(SiteNam, Hab_Roll) %>%
   summarise(Pool_A = sum(SHAPE_A)) %>%
   ungroup()
 
 Slowwater_Pct <- dash2018_cu %>%
-  group_by(SiteNam, Reach_Nmb) %>%
+  group_by(SiteNam, Hab_Roll) %>%
   summarise(Total_A = sum(SHAPE_A)) %>%
-  left_join(Pool_A, by = c("SiteNam", "Reach_Nmb")) %>%
+  left_join(Pool_A, by = c("SiteNam", "Hab_Roll")) %>%
   ungroup() %>%
   mutate(Slowwat_Pct = (Pool_A/Total_A))
 
 dash2018_fr = dash2018_fr %>%
-  left_join(Slowwater_Pct, by = c("SiteNam", "Reach_Nmb")) %>%
+  left_join(Slowwater_Pct, by = c("SiteNam", "Hab_Roll")) %>%
   select(-Total_A)
 
 
 ##Side channel percent
 SC_A <- dash2018_cu %>%
   filter(Sgmnt_N > 1) %>%
-  group_by(SiteNam, Reach_Nmb) %>%
+  group_by(SiteNam, Hab_Roll) %>%
   summarise(SC_A = sum(SHAPE_A)) %>%
   ungroup()
 
 SC_Pct <- dash2018_cu %>%
-  group_by(SiteNam, Reach_Nmb) %>%
+  group_by(SiteNam, Hab_Roll) %>%
   summarise(Total_A = sum(SHAPE_A)) %>%
-  left_join(SC_A, by = c("SiteNam", "Reach_Nmb")) %>%
+  left_join(SC_A, by = c("SiteNam", "Hab_Roll")) %>%
   ungroup() %>%
   mutate(SC_Pct = (SC_A/Total_A)) %>%
   select(-Total_A)
 
 dash2018_fr = dash2018_fr %>%
-  left_join(SC_Pct, by = c("SiteNam", "Reach_Nmb"))
+  left_join(SC_Pct, by = c("SiteNam", "Hab_Roll"))
 
 ##large wood frequency
 LW_count_wet <- dash2018_cu %>%
-  group_by(SiteNam, Reach_Nmb) %>%
+  group_by(SiteNam, Hab_Roll) %>%
   summarise(Wood_Ct = sum(N_Wet))
 
 LWFreq_Wet <- dash2018_cu %>%
-  group_by(SiteNam, Reach_Nmb) %>%
+  group_by(SiteNam, Hab_Roll) %>%
   summarise(Total_L = sum(Length)) %>%
   ungroup() %>%
-  left_join(LW_count_wet, by = c("SiteNam", "Reach_Nmb")) %>%
+  left_join(LW_count_wet, by = c("SiteNam", "Hab_Roll")) %>%
   mutate(LWFreq_Wet = ((Wood_Ct/Total_L)*100)) %>%
   select(-Total_L)
 
 dash2018_fr = dash2018_fr %>%
-  left_join(LWFreq_Wet, by = c("SiteNam","Reach_Nmb"))
+  left_join(LWFreq_Wet, by = c("SiteNam","Hab_Roll"))
 
 # NatPrin1: from gaa lines Salmon basin only
 # DistPrin1: from gaa lines Salmon basin only
@@ -204,6 +204,7 @@ all_cu <- rbind(upper_lemhi_poly,
                 pahs_poly, 
                 upper_salmon_poly)
 
+## Still creating new gaa data after issue with NatDist layer
 gaa_join <- st_join(all_cu, gaa_select) %>%
   group_by(SiteNam) %>%
   distinct(Unt_Nmb, .keep_all = TRUE )
@@ -220,11 +221,11 @@ all_cl <- rbind(ll_cl,
                 ul_cl,
                 pah_cl,
                 us_cl) %>%
-  mutate_at("Reach_Nmb", funs(replace(., is.na(.), 0))) %>%
-  select(2)
+  mutate_at("Hab_Roll", funs(replace(., is.na(.), 0))) %>%
+  select("SiteNam", "Hab_Roll")
 
-### This calculated sinuosity of a single line, 
-### but needs to be ran through each row of the "all_cl" above.
+############ This calculated sinuosity of a single line as an example, 
+############ but needs to be wrapped for each row of the "all_cl" above. 
 LL_CL_sin <- st_read("C:/GIT/DASH/data/raw/dash2018/LowerLemhi/LL_Centerline_Dissolve.shp")
 cl_length <- as.numeric(st_length((LL_CL_sin)))
 
@@ -237,7 +238,33 @@ end <- cl_points[nrow(cl_points),]
 line <- as.numeric(st_distance(start, end))
 sin <- line/cl_length
 # WetBraid
+main_length <- all_cl %>%
+  mutate(length = as.numeric(st_length(all_cl))) %>%
+  st_drop_geometry()
+
+sc_all <- rbind(lower_lemhi_line,
+                   upper_lemhi_line,
+                   upper_salmon_line,
+                   pahs_line) %>%
+                   select("SiteNam", "Hab_Roll") 
 
 
+sc_all <- sc_all %>%
+  mutate(length = as.numeric(st_length(sc_all)))
+
+sc_length <- sc_all %>%
+  group_by(SiteNam, Hab_Roll) %>%
+  summarise(sc_length = as.numeric(sum(length))) %>%
+  st_drop_geometry()
+
+wet_braid <- left_join(main_length, sc_length, 
+                         by = c("SiteNam", "Hab_Roll")) %>%
+                         mutate_at("sc_length", funs(replace(., is.na(.), 0))) %>%
+  mutate(total_length = length + sc_length) %>%
+  mutate(wet_braid = total_length/length) %>%
+  select("SiteNam", "Hab_Roll", "wet_braid")
+  
+dash2018_fr = dash2018_fr %>%
+  left_join(wet_braid, by = c("SiteNam","Hab_Roll"))
 # write fish reach data to csv
 write_csv(dash2018_fr, 'data/prepped/dash2018_fr.csv')
