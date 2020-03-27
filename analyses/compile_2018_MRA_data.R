@@ -16,21 +16,24 @@ library(rgeos)
 
 #-----------------------------------------------------------------
 # read in data
-upper_lemhi_line  = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/UL_Line_Fish.shp')
-upper_lemhi_poly  = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/UL_Poly_Fish.shp')
-lower_lemhi_line  = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/LL_Line_Fish.shp')
-lower_lemhi_poly  = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/LL_Poly_Fish.shp')
-pahs_line         = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/Pah_Line_Fish.shp')
-pahs_poly         = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/Pah_Poly_Fish.shp')
-upper_salmon_line = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Line_Fish.shp')
-upper_salmon_poly = st_read('C:/Git/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Poly_Fish.shp') 
-# fixing upper salmon 
+upper_lemhi_line  = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/UL_Line_Fish.shp')
+upper_lemhi_poly  = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/UL_Poly_Fish.shp')
+lower_lemhi_line  = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/LL_Line_Fish.shp')
+lower_lemhi_poly  = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/LL_Poly_Fish.shp')
+pahs_line         = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/Pah_Line_Fish.shp')
+pahs_poly         = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/Pah_Poly_Fish.shp')
+upper_salmon_line = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Line_Fish.shp')
+upper_salmon_poly = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Poly_Fish.shp') 
+
+# fixing upper salmon  crs
 upper_salmon_poly <- st_transform(upper_salmon_poly, crs = st_crs(pahs_line))
 upper_salmon_line <- st_transform(upper_salmon_line, crs = st_crs(pahs_line))
-# gaa, norwest, natdist, from Salmon basin only
-gaa               = st_read("C:/Processing/GIS/new_gaa/norwest_gaa_natdist_join/SalmonBasin/SalmonBasin_Join_All.shp")
+
+# gaa, norwest, natdist, from Salmon basin only (this must be Richie's machine, not sure if I need this later)
+gaa = st_read("C:/Processing/GIS/new_gaa/norwest_gaa_natdist_join/SalmonBasin/SalmonBasin_Join_All.shp")
 gaa_trans <- st_transform(gaa, crs = st_crs(pahs_line)) 
 gaa_trans <- st_zm(gaa_trans)
+
 # Upper Lemhi
 ggplot() +
   geom_sf(data = upper_lemhi_line) +
@@ -97,8 +100,6 @@ upper_salmon_poly = upper_salmon_poly %>%
   rename(Hab_Roll = hr)
 upper_salmon = rbind(upper_salmon_line, upper_salmon_poly)
 upper_salmon = as.data.frame(upper_salmon)
-
-
 
 # merge all sites
 dash2018_cu = rbind(upper_lemhi, lower_lemhi, pahs, upper_salmon) %>%
@@ -198,6 +199,7 @@ gaa_select <- gaa_trans %>%
          "dstrb_1",
          "nt_ft_1",
          "nt_ft_2")
+
 # join data to mra sites
 all_cu <- rbind(upper_lemhi_poly, 
                 lower_lemhi_poly, 
@@ -211,22 +213,30 @@ gaa_join <- st_join(all_cu, gaa_select) %>%
 
 # Sin_CL: calculated from imagery for each fish reach
 # read in cl with hab roll column
-
-ll_cl <- st_read("C:/GIT/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/LL_Centerline_sin.shp")
-ul_cl <- st_read("C:/GIT/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/UL_Centerline_sin.shp")
-pah_cl <- st_read("C:/GIT/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/Pah_Centerline_sin.shp")
-us_cl <- st_read("C:/GIT/DASH/data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Centerline_sin.shp")
+ll_cl <- st_read("data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/LL_Centerline_sin.shp")
+ul_cl <- st_read("data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/UL_Centerline_sin.shp")
+pah_cl <- st_read("data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/Pah_Centerline_sin.shp")
+us_cl <- st_read("data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Centerline_sin.shp")
 us_cl <- st_transform(us_cl, crs = st_crs(pahs_line))
+
+# combine all of the above
 all_cl <- rbind(ll_cl,
                 ul_cl,
                 pah_cl,
                 us_cl) %>%
   mutate_at("Hab_Roll", funs(replace(., is.na(.), 0))) %>%
-  select("SiteNam", "Hab_Roll")
+  select("SiteNam", "Hab_Roll") %>%
+  mutate(length = as.numeric(st_length(geometry)),
+         linestring = st_cast(geometry, "LINESTRING")) %>%
+  mutate(start = st_line_sample(linestring, sample = 0),
+         end = st_line_sample(linestring, sample = 1)) %>%
+  mutate(straight_line = mapply(st_distance, start, end)) %>%
+  mutate(sin = length / straight_line) %>%
+  select(-linestring, -start, -end)
 
 ############ This calculated sinuosity of a single line as an example, 
 ############ but needs to be wrapped for each row of the "all_cl" above. 
-LL_CL_sin <- st_read("C:/GIT/DASH/data/raw/dash2018/LowerLemhi/LL_Centerline_Dissolve.shp")
+LL_CL_sin <- st_read("data/raw/dash2018/LowerLemhi/LL_Centerline_Dissolve.shp")
 cl_length <- as.numeric(st_length((LL_CL_sin)))
 
 
@@ -237,6 +247,7 @@ start <- cl_points[1,]
 end <- cl_points[nrow(cl_points),]
 line <- as.numeric(st_distance(start, end))
 sin <- line/cl_length
+
 # WetBraid
 main_length <- all_cl %>%
   mutate(length = as.numeric(st_length(all_cl))) %>%
