@@ -232,50 +232,74 @@ all_cl <- rbind(ll_cl,
          end = st_line_sample(linestring, sample = 1)) %>%
   mutate(straight_line = mapply(st_distance, start, end)) %>%
   mutate(sin = length / straight_line) %>%
-  select(-linestring, -start, -end)
+  select(-linestring, -start, -end) %>%
+  st_drop_geometry()
+
+sc_all = rbind(lower_lemhi_line,
+               upper_lemhi_line,
+               upper_salmon_line,
+               pahs_line) %>%
+  select("SiteNam", "Hab_Roll") %>%
+  mutate(length = as.numeric(st_length(geometry))) %>%
+  group_by(SiteNam, Hab_Roll) %>%
+  summarise(sc_length = sum(length)) %>%
+  st_drop_geometry()
+  
+wet_braid = all_cl %>%
+  left_join(sc_all,
+            by = c("SiteNam", "Hab_Roll")) %>%
+  mutate_at("sc_length", replace_na, 0) %>%
+  mutate(total_length = length + sc_length) %>%
+  mutate(wet_braid = total_length/straight_line)
+
+dash2018_fr = dash2018_fr %>%
+  left_join(wet_braid, by = c("SiteNam","Hab_Roll"))
+
+# write fish reach data to csv
+write_csv(dash2018_fr, 'data/prepped/dash2018_fr.csv')
 
 ############ This calculated sinuosity of a single line as an example, 
 ############ but needs to be wrapped for each row of the "all_cl" above. 
-LL_CL_sin <- st_read("data/raw/dash2018/LowerLemhi/LL_Centerline_Dissolve.shp")
-cl_length <- as.numeric(st_length((LL_CL_sin)))
-
-
-cl_points <- (LL_CL_sin) %>%
-  select("Hab_Roll") 
-cl_points <- st_cast(cl_points, "MULTIPOINT")
-start <- cl_points[1,] 
-end <- cl_points[nrow(cl_points),]
-line <- as.numeric(st_distance(start, end))
-sin <- line/cl_length
-
-# WetBraid
-main_length <- all_cl %>%
-  mutate(length = as.numeric(st_length(all_cl))) %>%
-  st_drop_geometry()
-
-sc_all <- rbind(lower_lemhi_line,
-                   upper_lemhi_line,
-                   upper_salmon_line,
-                   pahs_line) %>%
-                   select("SiteNam", "Hab_Roll") 
-
-
-sc_all <- sc_all %>%
-  mutate(length = as.numeric(st_length(sc_all)))
-
-sc_length <- sc_all %>%
-  group_by(SiteNam, Hab_Roll) %>%
-  summarise(sc_length = as.numeric(sum(length))) %>%
-  st_drop_geometry()
-
-wet_braid <- left_join(main_length, sc_length, 
-                         by = c("SiteNam", "Hab_Roll")) %>%
-                         mutate_at("sc_length", funs(replace(., is.na(.), 0))) %>%
-  mutate(total_length = length + sc_length) %>%
-  mutate(wet_braid = total_length/length) %>%
-  select("SiteNam", "Hab_Roll", "wet_braid")
-  
-dash2018_fr = dash2018_fr %>%
-  left_join(wet_braid, by = c("SiteNam","Hab_Roll"))
-# write fish reach data to csv
-write_csv(dash2018_fr, 'data/prepped/dash2018_fr.csv')
+# LL_CL_sin <- st_read("data/raw/dash2018/LowerLemhi/LL_Centerline_Dissolve.shp")
+# cl_length <- as.numeric(st_length((LL_CL_sin)))
+# 
+# 
+# cl_points <- (LL_CL_sin) %>%
+#   select("Hab_Roll") 
+# cl_points <- st_cast(cl_points, "MULTIPOINT")
+# start <- cl_points[1,] 
+# end <- cl_points[nrow(cl_points),]
+# line <- as.numeric(st_distance(start, end))
+# sin <- line/cl_length
+# 
+# # WetBraid
+# main_length <- all_cl %>%
+#   mutate(length = as.numeric(st_length(all_cl))) %>%
+#   st_drop_geometry()
+# 
+# sc_all <- rbind(lower_lemhi_line,
+#                    upper_lemhi_line,
+#                    upper_salmon_line,
+#                    pahs_line) %>%
+#                    select("SiteNam", "Hab_Roll") 
+# 
+# 
+# sc_all <- sc_all %>%
+#   mutate(length = as.numeric(st_length(sc_all)))
+# 
+# sc_length <- sc_all %>%
+#   group_by(SiteNam, Hab_Roll) %>%
+#   summarise(sc_length = as.numeric(sum(length))) %>%
+#   st_drop_geometry()
+# 
+# wet_braid <- left_join(main_length, sc_length, 
+#                          by = c("SiteNam", "Hab_Roll")) %>%
+#                          mutate_at("sc_length", funs(replace(., is.na(.), 0))) %>%
+#   mutate(total_length = length + sc_length) %>%
+#   mutate(wet_braid = total_length/length) %>%
+#   select("SiteNam", "Hab_Roll", "wet_braid")
+#   
+# dash2018_fr = dash2018_fr %>%
+#   left_join(wet_braid, by = c("SiteNam","Hab_Roll"))
+# # write fish reach data to csv
+# write_csv(dash2018_fr, 'data/prepped/dash2018_fr.csv')
