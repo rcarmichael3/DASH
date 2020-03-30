@@ -29,8 +29,8 @@ upper_salmon_poly = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_
 upper_salmon_poly <- st_transform(upper_salmon_poly, crs = st_crs(pahs_line))
 upper_salmon_line <- st_transform(upper_salmon_line, crs = st_crs(pahs_line))
 
-# gaa, norwest, natdist, from Salmon basin only (this must be Richie's machine, not sure if I need this later)
-gaa = st_read("C:/Processing/GIS/new_gaa/norwest_gaa_natdist_join/SalmonBasin/SalmonBasin_Join_All.shp")
+# gaa, norwest, natdist, from Salmon basin only. make sure your NAS is mapped to Z:/ or change below.
+gaa = st_read("Z:/habitat/full_join/SalmonBasin/SalmonBasin_fulljoin.shp")
 gaa_trans <- st_transform(gaa, crs = st_crs(pahs_line)) 
 gaa_trans <- st_zm(gaa_trans)
 
@@ -196,9 +196,9 @@ dash2018_fr = dash2018_fr %>%
 # Select attributes to join
 gaa_select <- gaa_trans %>%
   select("S2_02_11", 
-         "dstrb_1",
-         "nt_ft_1",
-         "nt_ft_2")
+         "NatPrin1",
+         "NatPrin2",
+         "DistPrin1")
 
 # join data to mra sites
 all_cu <- rbind(upper_lemhi_poly, 
@@ -206,8 +206,10 @@ all_cu <- rbind(upper_lemhi_poly,
                 pahs_poly, 
                 upper_salmon_poly)
 
-## Still creating new gaa data after issue with NatDist layer
-gaa_join <- st_join(all_cu, gaa_select) %>%
+## Need to join attributes from attributes from gaa_select with channel unit poly that is closest to it. 
+## Then we can roll the gaa's up based on the hab_roll column. I assume that the values will be the same at 
+## each channel unit or very close so we could take the average from each unit across the group_by "hab_roll".
+gaa_join <- as.data.frame(st_nearest_feature(all_cu, gaa_select))
   group_by(SiteNam) %>%
   distinct(Unt_Nmb, .keep_all = TRUE )
 
