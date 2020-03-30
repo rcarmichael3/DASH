@@ -250,7 +250,7 @@ wet_braid = all_cl %>%
             by = c("SiteNam", "Hab_Roll")) %>%
   mutate_at("sc_length", replace_na, 0) %>%
   mutate(total_length = length + sc_length) %>%
-  mutate(wet_braid = total_length/straight_line)
+  mutate(wet_braid = total_length/length)
 
 dash2018_fr = dash2018_fr %>%
   left_join(wet_braid, by = c("SiteNam","Hab_Roll"))
