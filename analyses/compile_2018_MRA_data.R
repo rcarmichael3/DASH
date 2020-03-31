@@ -106,7 +106,7 @@ upper_salmon = rbind(upper_salmon_line, upper_salmon_poly)
 #upper_salmon = as.data.frame(upper_salmon)
 
 #-----------------------------------------------------
-# Merge all sites as the cu (channel unit) scale
+# Merge all sites at the cu (channel unit) scale
 #-----------------------------------------------------
 dash2018_cu = rbind(upper_lemhi, lower_lemhi, pahs, upper_salmon) %>%
   select(SiteNam, Reach_Nmb, everything()) %>%
@@ -236,6 +236,7 @@ gaa_select = gaa_trans %>%
          "NatPrin1",
          "NatPrin2",
          "DistPrin1",
+         "MeanU_v1",
          "geometry")
 
 # plot gaa_select
@@ -308,10 +309,15 @@ wet_braid = all_cl %>%
             by = c("SiteNam", "Hab_Roll")) %>%
   mutate_at("sc_length", replace_na, 0) %>%
   mutate(total_length = length + sc_length) %>%
-  mutate(wet_braid = total_length/length)
+  mutate(wet_braid = total_length/length) %>%
+  mutate(wet_braid_sin = total_length / straight_line)
 
 dash2018_fr = dash2018_fr %>%
   left_join(wet_braid, by = c("SiteNam","Hab_Roll"))
+
+# write dash2018_fr out as .Rda and shapefile
+save(dash2018_fr, file = "data/prepped/dash2018_fr.Rda")
+st_write(dash2018_fr, "dash2018_fr.shp")
 
 # write fish reach data to csv
 write_csv(dash2018_fr, 'data/prepped/dash2018_fr.csv')
