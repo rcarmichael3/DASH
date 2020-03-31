@@ -3,6 +3,7 @@
 # Created: 10/25/2019
 # Last Modified: 10/25/2019
 # Notes: 
+rm(list = ls())
 
 #-----------------------------------------------------------------
 # load needed libraries
@@ -29,11 +30,15 @@ upper_salmon_poly = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_
 upper_salmon_poly <- st_transform(upper_salmon_poly, crs = st_crs(pahs_line))
 upper_salmon_line <- st_transform(upper_salmon_line, crs = st_crs(pahs_line))
 
-# gaa, norwest, natdist, from Salmon basin only. make sure your NAS is mapped to Z:/ or change below.
+# gaa, norwest, natdist, from Salmon basin only. Richie's NAS is mapped to Z:/...Mike's is S:/
 gaa = st_read("Z:/habitat/full_join/SalmonBasin/SalmonBasin_fulljoin.shp")
-gaa_trans <- st_transform(gaa, crs = st_crs(pahs_line)) 
-gaa_trans <- st_zm(gaa_trans)
+gaa = st_read("S:/habitat/full_join/SalmonBasin/SalmonBasin_fulljoin.shp")
+gaa_trans <- st_transform(gaa, crs = st_crs(pahs_line)) %>%
+  st_zm()
 
+#-----------------------------------------------------
+# Plot the MRA data, just for visualization
+#-----------------------------------------------------
 # Upper Lemhi
 ggplot() +
   geom_sf(data = upper_lemhi_line) +
@@ -62,26 +67,25 @@ ggplot() +
   theme_classic() +
   labs(title = 'Upper Salmon') 
 
-# merge upper lemhi data
+#-----------------------------------------------------
+# Merge datasets by valley segment
+#-----------------------------------------------------
+# upper lemhi data
 upper_lemhi_line = upper_lemhi_line %>%
   mutate(A_Vg_Cv = NA, Length = NA)
 upper_lemhi_poly = upper_lemhi_poly %>%
   mutate(Avg_wdt = NA, SHAPE_L = NA, sinusty = NA)
 upper_lemhi = rbind(upper_lemhi_line, upper_lemhi_poly)
-upper_lemhi = as.data.frame(upper_lemhi)
+#upper_lemhi = as.data.frame(upper_lemhi)
 
-# # remove 'Reach' from lower lemhi data
-# lower_lemhi_line = lower_lemhi_line %>%
-#   select(-Reach)
-
-# merge lower lemhi data
+# lower lemhi data
 lower_lemhi_line = lower_lemhi_line %>%
   mutate(A_Vg_Cv = NA, Length = NA, Reach = NA) %>%
   select(-Reach)
 lower_lemhi_poly = lower_lemhi_poly %>%
   mutate(Avg_wdt = NA, SHAPE_L = NA, sinusty = NA)
 lower_lemhi = rbind(lower_lemhi_line, lower_lemhi_poly)
-lower_lemhi = as.data.frame(lower_lemhi)
+#lower_lemhi = as.data.frame(lower_lemhi)
 
 # merge pahsimeroi data
 pahs_line = pahs_line %>%
@@ -89,7 +93,7 @@ pahs_line = pahs_line %>%
 pahs_poly = pahs_poly %>%
   mutate(Avg_wdt = NA, SHAPE_L = NA, sinusty = NA)
 pahs = rbind(pahs_line, pahs_poly)
-pahs = as.data.frame(pahs)
+#pahs = as.data.frame(pahs)
 
 # merge upper salmon data
 upper_salmon_line = upper_salmon_line %>%
@@ -99,9 +103,11 @@ upper_salmon_poly = upper_salmon_poly %>%
   mutate(Avg_wdt = NA, SHAPE_L = NA, sinusty = NA) %>%
   rename(Hab_Roll = hr)
 upper_salmon = rbind(upper_salmon_line, upper_salmon_poly)
-upper_salmon = as.data.frame(upper_salmon)
+#upper_salmon = as.data.frame(upper_salmon)
 
-# merge all sites
+#-----------------------------------------------------
+# Merge all sites as the cu (channel unit) scale
+#-----------------------------------------------------
 dash2018_cu = rbind(upper_lemhi, lower_lemhi, pahs, upper_salmon) %>%
   select(SiteNam, Reach_Nmb, everything()) %>%
   mutate(Len = ifelse(is.na(Length), SHAPE_L, Length)) %>%
@@ -109,8 +115,17 @@ dash2018_cu = rbind(upper_lemhi, lower_lemhi, pahs, upper_salmon) %>%
   rename(Length = Len) %>%
   select(-sinusty)
 
+# plot dash2018_cu
+ggplot() +
+  geom_sf(data = dash2018_cu,
+          aes(fill = SiteNam)) +
+  labs(title = "MRA Reaches",
+       fill = "Site Name") +
+  theme_bw()
 
-# begin rolling up summaries by fish reach
+#-----------------------------------------------------
+# Begin rolling up that data by fish reaches
+#-----------------------------------------------------
 dash2018_fr = dash2018_cu %>%
   group_by(SiteNam, Hab_Roll) %>%
   summarise(FishCovNone = weighted.mean(No_Cov, SHAPE_A),
@@ -136,33 +151,47 @@ dash2018_fr = dash2018_cu %>%
             Undrc_A = sum(Undrc_V)) %>%
   mutate(UcutArea_Pct = (Undrc_A / SHAPE_A) * 100)
 
-##Slowwater pct
+# plot dash2018_fr
+ggplot() +
+  geom_sf(data = dash2018_fr,
+          aes(fill = SiteNam)) +
+  labs(title = "MRA Reaches",
+       fill = "Site Name") +
+  theme_bw()
+
+#-----------------------------------------------------
+# Calculate additional metrics, roll up, and attach to dash2018_fr
+#-----------------------------------------------------
+# Slowwater pct
 Pool_A <- dash2018_cu %>%
+  st_drop_geometry() %>%
   filter(Unt_Typ == "Pool") %>%
   group_by(SiteNam, Hab_Roll) %>%
   summarise(Pool_A = sum(SHAPE_A)) %>%
   ungroup()
 
 Slowwater_Pct <- dash2018_cu %>%
+  st_drop_geometry() %>%
   group_by(SiteNam, Hab_Roll) %>%
   summarise(Total_A = sum(SHAPE_A)) %>%
   left_join(Pool_A, by = c("SiteNam", "Hab_Roll")) %>%
   ungroup() %>%
-  mutate(Slowwat_Pct = (Pool_A/Total_A))
+  mutate(Slowwat_Pct = (Pool_A / Total_A))
 
 dash2018_fr = dash2018_fr %>%
   left_join(Slowwater_Pct, by = c("SiteNam", "Hab_Roll")) %>%
   select(-Total_A)
 
-
-##Side channel percent
+# Side channel percent
 SC_A <- dash2018_cu %>%
+  st_drop_geometry() %>%
   filter(Sgmnt_N > 1) %>%
   group_by(SiteNam, Hab_Roll) %>%
   summarise(SC_A = sum(SHAPE_A)) %>%
   ungroup()
 
 SC_Pct <- dash2018_cu %>%
+  st_drop_geometry() %>%
   group_by(SiteNam, Hab_Roll) %>%
   summarise(Total_A = sum(SHAPE_A)) %>%
   left_join(SC_A, by = c("SiteNam", "Hab_Roll")) %>%
@@ -173,12 +202,14 @@ SC_Pct <- dash2018_cu %>%
 dash2018_fr = dash2018_fr %>%
   left_join(SC_Pct, by = c("SiteNam", "Hab_Roll"))
 
-##large wood frequency
+# Large wood frequency
 LW_count_wet <- dash2018_cu %>%
+  st_drop_geometry() %>%
   group_by(SiteNam, Hab_Roll) %>%
   summarise(Wood_Ct = sum(N_Wet))
 
 LWFreq_Wet <- dash2018_cu %>%
+  st_drop_geometry() %>%
   group_by(SiteNam, Hab_Roll) %>%
   summarise(Total_L = sum(Length)) %>%
   ungroup() %>%
@@ -189,16 +220,45 @@ LWFreq_Wet <- dash2018_cu %>%
 dash2018_fr = dash2018_fr %>%
   left_join(LWFreq_Wet, by = c("SiteNam","Hab_Roll"))
 
-# NatPrin1: from gaa lines Salmon basin only
-# DistPrin1: from gaa lines Salmon basin only
-# avg_aug_temp: from gaa lines Salmon basin only. Scenario "02_20"
+#-----------------------------------------------------
+# Select the attributed from gaa (Morgan's data) that we want to join to our dash2018_fr
+#-----------------------------------------------------
+# select fr info to test with and join gaa_select to that
+dash2018_select = dash2018_fr %>%
+  select("SiteNam",
+         "Hab_Roll",
+         "geometry")
 
-# Select attributes to join
-gaa_select <- gaa_trans %>%
-  select("S2_02_11", 
+# select attributes from to join
+gaa_select = gaa_trans %>%
+  select("UniqueID",
+         "S2_02_11", 
          "NatPrin1",
          "NatPrin2",
-         "DistPrin1")
+         "DistPrin1",
+         "geometry")
+
+# plot gaa_select
+ggplot() +
+  geom_sf(data = gaa_select,
+          aes(fill = UniqueID)) +
+  labs(title = "GAA Data",
+       fill = "Site ID") +
+  theme_bw()
+
+# what is the nearest gaa to each dash2018_fr?
+st_nearest_feature(dash2018_select,
+                   gaa_select)
+
+# join nearest gaa to the dash2018_fr
+dash2018_fr = dash2018_fr %>%
+  st_join(gaa_select,
+          join = st_nearest_feature,
+          left = TRUE)
+
+#-----------------------------------------------------
+# 
+#-----------------------------------------------------
 
 # join data to mra sites
 all_cu <- rbind(upper_lemhi_poly, 
