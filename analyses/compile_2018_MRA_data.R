@@ -256,22 +256,18 @@ dash2018_fr = dash2018_fr %>%
           join = st_nearest_feature,
           left = TRUE)
 
-#-----------------------------------------------------
-# 
-#-----------------------------------------------------
-
 # join data to mra sites
-all_cu <- rbind(upper_lemhi_poly, 
-                lower_lemhi_poly, 
-                pahs_poly, 
-                upper_salmon_poly)
+# all_cu <- rbind(upper_lemhi_poly, 
+#                 lower_lemhi_poly, 
+#                 pahs_poly, 
+#                 upper_salmon_poly)
 
-## Need to join attributes from attributes from gaa_select with channel unit poly that is closest to it. 
+## Need to join attributes from gaa_select with channel unit poly that is closest to it. 
 ## Then we can roll the gaa's up based on the hab_roll column. I assume that the values will be the same at 
 ## each channel unit or very close so we could take the average from each unit across the group_by "hab_roll".
-gaa_join <- as.data.frame(st_nearest_feature(all_cu, gaa_select))
-  group_by(SiteNam) %>%
-  distinct(Unt_Nmb, .keep_all = TRUE )
+# gaa_join <- as.data.frame(st_nearest_feature(all_cu, gaa_select))
+#   group_by(SiteNam) %>%
+#   distinct(Unt_Nmb, .keep_all = TRUE )
 
 # Sin_CL: calculated from imagery for each fish reach
 # read in cl with hab roll column
