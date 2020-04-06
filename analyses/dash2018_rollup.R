@@ -82,8 +82,27 @@ us_sf = us_ms_sf %>%
   rename(Hab_Roll = hr)
 rm(us_ms_sf, us_sc_sf)
 
+#-----------------------------
+# fix a Lsc in the Pahsimeroi data
+#-----------------------------
+ph_Lsc = ph_sf %>%
+  filter(is.na(Hab_Roll)) %>%
+  mutate_at(.vars = vars(Off_C_T:sinusty),
+            .funs = funs(1 * NA)) %>%
+  mutate(Unt_Typ = "Off Channel",
+         Sgmnt_N = NA,
+         Hab_Roll = replace_na(Hab_Roll, 5)) 
+
+ph_sf = ph_sf %>%
+  drop_na(Hab_Roll) %>%
+  rbind(ph_Lsc)
+rm(ph_Lsc)
+
+#-----------------------------
+# merge data together and do some cleaning
+#-----------------------------
 # merge all sites
-dash2018_sf = rbind(ul_sf, ll_sf, ph_sf, us_sf) %>%
+dash2018_cu = rbind(ul_sf, ll_sf, ph_sf, us_sf) %>%
   mutate(Length = ifelse(is.na(Length), SHAPE_L, Length)) %>%
   select(-SHAPE_L, -sinusty, -Nhat, - Density) %>%
   rename(Sgmnt_ID = Sgmnt_N,
@@ -103,70 +122,78 @@ dash2018_sf = rbind(ul_sf, ll_sf, ph_sf, us_sf) %>%
          Undrc_C, Undrc_L, Undrc_A,                          # undercut
          d50, d84, Prc_Fns, Prc_Grv, Prc_Cbb, Prc_Bld,       # substrate
          Notes, everything()) %>%
-  mutate(Aq_Veg_Cov = replace_na(Aq_Veg_Cov, 0),
+  mutate(ID = paste0(str_pad(Sgmnt_ID, 2, pad = "0"), "_", str_pad(CU_ID, 3, pad = "0")),
+         Aq_Veg_Cov = replace_na(Aq_Veg_Cov, 0),
+         Mx_Dpth = ifelse(CU_Typ == "Pool", Mx_Dpth, NA),
          d50 = ifelse(CU_Typ == "Riffle", d50, NA),
          d84 = ifelse(CU_Typ == "Riffle", d84, NA),
          Prc_Fns = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Fns, NA),
-         Prc_Grv = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Fns, NA),
-         Prc_Cbb = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Fns, NA),
-         Prc_Bld = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Fns, NA)) %>%
-  arrange(SiteNam, Hab_Rch, Sgmnt_ID, CU_ID)
+         Prc_Grv = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Grv, NA),
+         Prc_Cbb = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Cbb, NA),
+         Prc_Bld = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Bld, NA)) %>%
+  mutate(CU_Typ = ifelse(is.na(Off_Chnl_Typ), as.character(CU_Typ),
+                         ifelse(Off_Chnl_Typ == "Ssc", "Ssc",
+                                ifelse(Off_Chnl_Typ == "Oca", "Oca",
+                                       ifelse(Off_Chnl_Typ %in% c("Pool", "Riffle", "Run", "Rapid"), "Lsc", NA))))) %>%
+  arrange(SiteNam, Hab_Rch, ID) %>%
+  select(SiteNam, Hab_Rch, ID, everything())
 
 # clean up some datasets
-#rm(ul_sf, ll_sf, ph_sf, us_sf)
-
-# save channel unit scale data
-save(dash2018_sf, file = "data/prepped/dash2018_channel_units.Rda")
+rm(ul_sf, ll_sf, ph_sf, us_sf)
 
 #-----------------------------
-# plot dash2018_sf for visualization
+# plot dash2018_cu for visualization
 #-----------------------------
 # I'll come back to this later; need to resolve facetting to zoom in on each map
 ggplot() +
-  geom_sf(data = dash2018_sf, 
-          aes(fill = Unt_Typ)) +
+  geom_sf(data = dash2018_cu, 
+          aes(fill = CU_Typ)) +
   facet_wrap(~ SiteNam) +
   theme_bw() +
   labs(fill = 'Channel Unit Type',
        title = 'MRA Sub-reaches')
 
 #-----------------------------
-# begin to roll up the data using the Hab_Roll column
+# calculate some hr scale metrics for the cus
 #--------------------------
-CU_Typs = unique(dash2018_sf$CU_Typ)
-
-# d50 and d84 should only be filled out if Chn_Typ = riffle
-# Ocular substrate estimates should only be filled out if Chn_Typ = Pool or Run
-
-dash2018_hr = dash2018_sf %>%
+dash2018_cu_plus = dash2018_cu %>%
   group_by(SiteNam, Hab_Rch) %>%
-  mutate(Mx_Mx_Dpth = max(Mx_Dpth),
-         Avg_Mx_Dpth = mean(Mx_Dpth),
-         CV_Mx_Dpth = sd(Mx_Dpth) / mean(Mx_Dpth),
-         Ssc_Cnt = length(which(Off_Chnl_Typ == "Ssc")),
-         HR_Tot_Cov = 1 - weighted.mean(No_Cov, SHAPE_A),
-         HR_Aq_Veg_Cov = weighted.mean(Aq_Veg_Cov, SHAPE_A),
-
-         
-         HR_d50 = weighted.mean(d50, SHAPE_A),
-         HR_d84 = weighted.mean(d84, SHAPE_A),
-         HR_Prc_Fns = weighted.mean(Prc_Fns, SHAPE_A),
-         HR_Prc_Grv = weighted.mean(Prc_Grv, SHAPE_A),
-         HR_Prc_Cbb = weighted.mean(Prc_Cbb, SHAPE_A),
-         HR_Prc_Bld = weighted.mean(Prc_Bld, SHAPE_A)) %>%
+  mutate(hr_Pool_Mx_Dpth = max(Mx_Dpth, na.rm = T),
+         hr_Pool_Avg_Mx_Dpth = mean(Mx_Dpth, na.rm = T),
+         hr_Pool_CV_Mx_Dpth = sd(Mx_Dpth, na.rm = T) / mean(Mx_Dpth, na.rm = T),
+         hr_Tot_Cov = 100 - weighted.mean(No_Cov, SHAPE_A),
+         hr_Aq_Veg_Cov = weighted.mean(Aq_Veg_Cov, SHAPE_A),
+         hr_d50 = weighted.mean(d50, SHAPE_A, na.rm = T),
+         hr_d84 = weighted.mean(d84, SHAPE_A, na.rm = T),
+         hr_Prc_Fns = weighted.mean(Prc_Fns, SHAPE_A, na.rm = T),
+         hr_Prc_Grv = weighted.mean(Prc_Grv, SHAPE_A, na.rm = T),
+         hr_Prc_Cbb = weighted.mean(Prc_Cbb, SHAPE_A, na.rm = T),
+         hr_Prc_Bld = weighted.mean(Prc_Bld, SHAPE_A, na.rm = T),
+         hr_CU_IDs = list(ID)) %>%
   ungroup() %>%
+  mutate_at(vars(starts_with("hr_")),
+            ~replace(., . %in% c("NaN", "-Inf"), NA))
+
+# save channel unit scale+ data
+save(dash2018_cu, dash2018_cu_plus, file = "data/prepped/dash2018_cus.Rda")
+
+#-----------------------------
+# begin to summarize data using Hab_Roll column
+#--------------------------
+dash2018_hr = dash2018_cu_plus %>%
   group_by(SiteNam, Hab_Rch) %>%
-  summarise(Sgmnt_Cnt = n_distinct(Sgmnt_ID),
+  summarise(CU_IDs = unique(hr_CU_IDs),
+            Sgmnt_Cnt = n_distinct(Sgmnt_ID),
             CU_Cnt = n_distinct(CU_ID),
+            Pool_Cnt = length(which(CU_Typ == "Pool")),
+            Run_Cnt = length(which(CU_Typ == "Run")),
+            Riffle_Cnt = length(which(CU_Typ == "Riffle")),
+            Rapid_Cnt = length(which(CU_Typ == "Rapid")),
+            Lsc_Cnt = length(which(CU_Typ == "Lsc")),
+            Ssc_Cnt = length(which(CU_Typ == "Ssc")),
+            Oca_Cnt = length(which(CU_Typ == "Oca")),
             Length = sum(Length),
             SHAPE_A = sum(SHAPE_A),
-            Riffle_Cnt = length(which(CU_Typ == "Riffle")),
-            Pool_Cnt = length(which(CU_Typ == "Pool")),
-            Off_Channel_Cnt = length(which(CU_Typ == "Off Channel")),
-            Run_Cnt = length(which(CU_Typ == "Run")),
-            Rapid_Cnt = length(which(CU_Typ == "Rapid")),
-            FstNT_Cnt = Run_Cnt,
-            FstTurb_Cnt = sum(Riffle_Cnt, Rapid_Cnt),
             Wod_Cnt = sum(Wod_Cnt),
             N_Bllst = sum(N_Bllst),
             N_ChFrm = sum(N_ChFrm),
@@ -175,39 +202,30 @@ dash2018_hr = dash2018_sf %>%
             Jam_Vlm = sum(Jam_Vlm),
             Undrc_C = sum(Undrc_C),
             Undrc_L = sum(Undrc_L),
-            Undrc_A = sum(Undrc_A))
+            Undrc_A = sum(Undrc_A),
+            Pool_Mx_Dpth = unique(hr_Pool_Mx_Dpth),
+            Pool_Avg_Mx_Dpth = unique(hr_Pool_Avg_Mx_Dpth),
+            Pool_CV_Mx_Dpth = unique(hr_Pool_CV_Mx_Dpth),
+            Tot_Cov = round(unique(hr_Tot_Cov), 2),
+            Aq_Veg_Cov = round(unique(hr_Aq_Veg_Cov), 2),
+            d50 = unique(hr_d50),
+            d84 = unique(hr_d84),
+            Prc_Fns = unique(hr_Prc_Fns),
+            Prc_Grv = unique(hr_Prc_Grv),
+            Prc_Cbb = unique(hr_Prc_Cbb),
+            Prc_Bld = unique(hr_Prc_Bld)) %>%
+  mutate(FstNT_Cnt = Run_Cnt,
+         FstTurb_Cnt = Riffle_Cnt + Rapid_Cnt)
 
-# To add:
-Ssc_Avg_Wdth = weighted.mean(Avg_Wdth, Length) if(Off_chnl_Typ == "Ssc")
+# Others to consider?
+#Ssc_Avg_Wdth = weighted.mean(Avg_Wdth, Length) if(Off_chnl_Typ == "Ssc")
+
+#-----------------------------
+# plot dash2018_hr for visualization
+#-----------------------------
+# I'll come back to this later; need to resolve facetting to zoom in on each map
 
 
-#-----------------------------------------------------
-# Begin rolling up that data by fish reaches
-#-----------------------------------------------------
-dash2018_fr = dash2018_cu %>%
-  group_by(SiteNam, Hab_Roll) %>%
-  summarise(FishCovNone = weighted.mean(No_Cov, SHAPE_A),
-            Prc_Grv = weighted.mean(Prc_Grv, SHAPE_A),
-            #FstTurb_Cnt = length(which(Unt_Typ == 'Riffle' | Unt_Typ == 'Rapid')),
-            #FstNT_Cnt = length(which(Unt_Typ == 'Run')),
-            #CU_Cnt = length(Unt_Nmb),
-            #Length = sum(Length),
-            FstTurb_Freq = (FstTurb_Cnt / Length) * 100,
-            FstNT_Freq = (FstNT_Cnt / Length) * 100,
-            CU_Freq = (CU_Cnt / Length) * 100,
-            #SHAPE_A = sum(SHAPE_A),
-            #Max_Dpth = max(Mx_Dpth),
-            #Avg_Mx_Depth = mean(Mx_Dpth),
-            #CV_Mx_Depth = sd(Mx_Dpth) / mean(Mx_Dpth),
-            #Jam_Vlm = sum(Jam_Vlm),
-            #Wod_Cnt = sum(Wod_Cnt),
-            #Wod_Vlm = sum(Wod_Vlm),
-            #N_Bllst = sum(N_Bllst),
-            #N_ChFrm = sum(N_ChFrm),
-            #N_Wet = sum(N_Wet),
-            #Undrc_L = sum(Undrc_L),
-            #Undrc_A = sum(Undrc_V)) %>%
-  mutate(UcutArea_Pct = (Undrc_A / SHAPE_A) * 100)
 
 # plot dash2018_fr
 ggplot() +
