@@ -46,7 +46,7 @@ ul_sf = ul_ms_sf %>%
   rbind(ul_sc_sf %>%
           mutate(A_Vg_Cv = NA,
                  Length = NA))
-rm(ul_ms_sf, ul_sc_sf)        
+#rm(ul_ms_sf, ul_sc_sf)        
 
 # lower lemhi  
 ll_sf = ll_ms_sf %>%
@@ -58,7 +58,7 @@ ll_sf = ll_ms_sf %>%
                  Length = NA,
                  Reach = NA) %>%
           select(-Reach))
-rm(ll_ms_sf, ll_sc_sf)
+#rm(ll_ms_sf, ll_sc_sf)
 
 # pahsimeroi
 ph_sf = ph_ms_sf %>%
@@ -68,7 +68,7 @@ ph_sf = ph_ms_sf %>%
   rbind(ph_sc_sf %>%
           mutate(A_Vg_Cv = NA,
                  Length = NA))
-rm(ph_ms_sf, ph_sc_sf)
+#rm(ph_ms_sf, ph_sc_sf)
 
 # upper salmon  
 us_sf = us_ms_sf %>%
@@ -80,7 +80,7 @@ us_sf = us_ms_sf %>%
                  Length = NA,
                  sinusty = NA)) %>%
   rename(Hab_Roll = hr)
-rm(us_ms_sf, us_sc_sf)
+#rm(us_ms_sf, us_sc_sf)
 
 #-----------------------------
 # fix a Lsc in the Pahsimeroi data
@@ -169,12 +169,14 @@ dash2018_cu_plus = dash2018_cu %>%
          hr_Prc_Grv = weighted.mean(Prc_Grv, SHAPE_A, na.rm = T),
          hr_Prc_Cbb = weighted.mean(Prc_Cbb, SHAPE_A, na.rm = T),
          hr_Prc_Bld = weighted.mean(Prc_Bld, SHAPE_A, na.rm = T),
-         hr_CU_IDs = list(ID)) %>%
+         hr_CU_IDs = list(ID),
+         hr_Pool_A = sum(SHAPE_A[CU_Typ == "Pool"]),
+         hr_SC_A = sum(SHAPE_A[Sgmnt_ID > 1])) %>%
   ungroup() %>%
   mutate_at(vars(starts_with("hr_")),
             ~replace(., . %in% c("NaN", "-Inf"), NA))
 
-# save channel unit scale+ data
+# save channel unit scale data
 save(dash2018_cu, dash2018_cu_plus, file = "data/prepped/dash2018_cus.Rda")
 
 #-----------------------------
@@ -213,9 +215,14 @@ dash2018_hr = dash2018_cu_plus %>%
             Prc_Fns = unique(hr_Prc_Fns),
             Prc_Grv = unique(hr_Prc_Grv),
             Prc_Cbb = unique(hr_Prc_Cbb),
-            Prc_Bld = unique(hr_Prc_Bld)) %>%
+            Prc_Bld = unique(hr_Prc_Bld),
+            Pool_A = unique(hr_Pool_A),
+            SC_A = unique(hr_SC_A)) %>%
   mutate(FstNT_Cnt = Run_Cnt,
-         FstTurb_Cnt = Riffle_Cnt + Rapid_Cnt)
+         FstTurb_Cnt = Riffle_Cnt + Rapid_Cnt,
+         Slowwater_Pct = (Pool_A / SHAPE_A) * 100,
+         SC_Pct = (SC_A / SHAPE_A) * 100,
+         LWFreq_Wet = (N_Wet / Length) * 100)
 
 # Others to consider?
 #Ssc_Avg_Wdth = weighted.mean(Avg_Wdth, Length) if(Off_chnl_Typ == "Ssc")
@@ -224,24 +231,121 @@ dash2018_hr = dash2018_cu_plus %>%
 # plot dash2018_hr for visualization
 #-----------------------------
 # I'll come back to this later; need to resolve facetting to zoom in on each map
-
-
-
-# plot dash2018_fr
 ggplot() +
-  geom_sf(data = dash2018_fr,
-          aes(fill = SiteNam)) +
+  geom_sf(data = dash2018_hr,
+          aes(fill = Hab_Rch)) +
+  facet_wrap(~SiteNam) +
   labs(title = "MRA Reaches",
-       fill = "Site Name") +
+       fill = "Habitat Reaches") +
   theme_bw()
 
+#-----------------------------
+# calculate sinuosity and braidedness metrics and add to dash2018_hr
+#-----------------------------
+
+# read in the centerlines with Hab_Roll column
+ul_cl = st_read("data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/UL_Centerline_sin.shp")
+ll_cl = st_read("data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/LL_Centerline_sin.shp")
+ph_cl = st_read("data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/Pah_Centerline_sin.shp")
+us_cl <- st_read("data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Centerline_sin.shp") %>%
+  st_transform(crs = st_crs(mra_crs))
   
+# combine the above centerlines (still need to resolve the Pahsimeroi Hab_Roll 5)
+mra_cl = rbind(ul_cl,
+               ll_cl,
+               ph_cl,
+               us_cl) %>%
+  # fix the Pahsimeroi NA Hab_Roll which belongs in Hab_Roll 5
+  mutate(Hab_Roll = replace_na(Hab_Roll, 5)) %>%
+  select("SiteNam", "Hab_Roll", "sinuosity") %>%
+  mutate(Length = as.numeric(st_length(geometry))) %>%
+  mutate(start = st_line_sample(geometry, sample = 0),
+         end = st_line_sample(geometry, sample = 1)) %>%
+  mutate(straight_line = mapply(st_distance, start, end)) %>%
+  select(-start, -end) %>%
+  mutate(sinuosity = straight_line / Length) %>%
+  st_drop_geometry() 
 
+# combine the side channels and calculate sc length by Hab_Roll
+mra_sc = ul_sc_sf %>%
+  mutate(A_Vg_Cv = NA,
+         Length = NA) %>%
+  rbind(ll_sc_sf %>%
+          mutate(A_Vg_Cv = NA,
+                 Length = NA)) %>%
+  rbind(ph_sc_sf %>%
+          mutate(A_Vg_Cv = NA,
+                 Length = NA)) %>%
+  rbind(us_sc_sf %>%
+          mutate(A_Vg_Cv = NA,
+                 Length = NA,
+                 sinusty = NA) %>%
+          rename(Hab_Roll = hr)) %>%
+  select("SiteNam", "Hab_Roll") %>%
+  mutate(Length = as.numeric(st_length(geometry))) %>%
+  group_by(SiteNam, Hab_Roll) %>%
+  summarise(sc_Length = sum(Length)) %>%
+  st_drop_geometry()
 
+# now calculate some sinuosity and braidedness metrics by Hab_Roll
+hr_sin_wet_braid = mra_cl %>%
+  left_join(mra_sc,
+            by = c("SiteNam", "Hab_Roll")) %>%
+  mutate_at("sc_Length", replace_na, 0) %>%
+  mutate(Tot_Length = Length + sc_Length) %>%
+  mutate(wet_braid = Tot_Length / Length) %>%
+  mutate(wet_braid_sin = Tot_Length / straight_line) %>%
+  rename(Hab_Rch = Hab_Roll)
 
+# join to dash2018_hr
+dash2018_hr = dash2018_hr %>%
+  left_join(hr_sin_wet_braid, 
+            by = c("SiteNam", "Hab_Rch"))
+
+# save habitat reach scale data
+save(dash2018_hr, file = "data/prepped/dash2018_hr.Rda")
+# st_write(dash2018_hr, "dash2018_hr.shp")
+  
+# clean up some datasets
+#rm(ul_cl, ll_cl, ph_cl, us_cl)
+
+#-----------------------------------------------------
+# read in Morgan's data, select attributes, and join to the dash2018_hr
+#-----------------------------------------------------
 # gaa, norwest, natdist, from Salmon basin only. Richie's NAS is mapped to Z:/...Mike's is S:/
-gaa = st_read("Z:/habitat/full_join/SalmonBasin/SalmonBasin_fulljoin.shp")
-gaa = st_read("S:/habitat/full_join/SalmonBasin/SalmonBasin_fulljoin.shp")
-gaa_trans <- st_transform(gaa, crs = st_crs(pahs_line)) %>%
-  st_zm()
+load("Z:/habitat/full_join/SalmonBasin/salmon_full_join.Rda")
+load("S:/habitat/full_join/SalmonBasin/salmon_full_join.Rda")
 
+# transform to the same crs
+salmon_full_join = salmon_full_join %>%
+  st_transform(crs = st_crs(mra_crs))
+
+# select attributes to join
+salmon_gaa_trim = salmon_full_join %>%
+  select("UniqueID",
+         "S2_02_11.y",
+         "NatPrin1",
+         "NatPrin2",
+         "DistPrin1",
+         "MeanU_v1")
+
+# plot salmon_gaa_trim
+ggplot() +
+  geom_sf(data = salmon_gaa_trim,
+          aes(fill = UniqueID)) +
+  labs(title = "GAA Data",
+       fill = "Site ID") +
+  theme_bw()
+
+# what is the nearest gaa to each dash2018_fr?
+st_nearest_feature(dash2018_hr,
+                   salmon_gaa_trim)
+
+# join nearest gaa to the dash2018_fr
+dash2018_hr_gaa = dash2018_hr %>%
+  st_join(salmon_gaa_trim,
+          join = st_nearest_feature,
+          left = TRUE)
+
+# save habitat reach scale data
+save(dash2018_hr, dash2018_hr_gaa, file = "data/prepped/dash2018_hr.Rda")
