@@ -86,18 +86,16 @@ us_sf = us_ms_sf %>%
 #-----------------------------
 # fix a Lsc in the Pahsimeroi data
 #-----------------------------
-ph_Lsc = ph_sf %>%
-  filter(is.na(Hab_Roll)) %>%
-  mutate_at(.vars = vars(Off_C_T:sinusty),
-            .funs = funs(1 * NA)) %>%
-  mutate(Unt_Typ = "Off Channel",
-         Sgmnt_N = NA,
-         Hab_Roll = replace_na(Hab_Roll, 5)) 
-
 ph_sf = ph_sf %>%
   drop_na(Hab_Roll) %>%
-  rbind(ph_Lsc)
-rm(ph_Lsc)
+  rbind(ph_sf %>%
+          filter(is.na(Hab_Roll)) %>%
+          mutate_at(vars(Off_C_T:sinusty),
+                    list(~as.numeric(NA))) %>%
+          mutate(Unt_Typ = "Off Channel",
+                 Sgmnt_N = NA,
+                 Hab_Roll = replace_na(Hab_Roll, 5)) )
+
 
 #-----------------------------
 # merge data together and do some cleaning
