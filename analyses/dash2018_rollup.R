@@ -1,4 +1,5 @@
 # Author: Mike Ackerman & Richie Carmichael
+#   with assists from Kevin See
 # 
 # Purpose: Compile the 2018 DASH data from MRA sites to make QRF capacity predictions
 #
@@ -139,19 +140,7 @@ dash2018_cu = rbind(ul_sf, ll_sf, ph_sf, us_sf) %>%
   select(SiteNam, Hab_Rch, ID, everything())
 
 # clean up some datasets
-rm(ul_sf, ll_sf, ph_sf, us_sf)
-
-#-----------------------------
-# plot dash2018_cu for visualization
-#-----------------------------
-# I'll come back to this later; need to resolve facetting to zoom in on each map
-ggplot() +
-  geom_sf(data = dash2018_cu, 
-          aes(fill = CU_Typ)) +
-  facet_wrap(~ SiteNam) +
-  theme_bw() +
-  labs(fill = 'Channel Unit Type',
-       title = 'MRA Sub-reaches')
+# rm(ul_sf, ll_sf, ph_sf, us_sf)
 
 #-----------------------------
 # calculate some hr scale metrics for the cus
@@ -178,6 +167,33 @@ dash2018_cu_plus = dash2018_cu %>%
 
 # save channel unit scale data
 save(dash2018_cu, dash2018_cu_plus, file = "data/prepped/dash2018_cus.Rda")
+
+# filter and save shapefile of mainstem units
+# dash2018_cu_plus_ms = dash2018_cu_plus %>%
+#   filter(st_geometry_type(.) == "POLYGON")
+# 
+# ...and side channels
+# dash2018_cu_plus_sc = dash2018_cu_plus %>%
+#   filter(st_geometry_type(.) == "LINESTRING")
+
+#-----------------------------
+# plot dash2018_cu for visualization
+#-----------------------------
+dash_cu_plotlist = purrr::map(unique(dash2018_cu_plus$SiteNam),
+                              function (x) {
+                                
+                                # subset data
+                                temp_sf = subset(dash2018_cu_plus, SiteNam == x)
+                                
+                                ggplot() +
+                                  geom_sf(data = temp_sf, aes(fill = CU_Typ)) +
+                                  guides(fill = FALSE) +
+                                  ggtitle(x) +
+                                  theme_bw()
+                              })
+
+dash_cu_plot = cowplot::plot_grid(plotlist = dash_cu_plotlist)
+dash_cu_plot
 
 #-----------------------------
 # begin to summarize data using Hab_Roll column
