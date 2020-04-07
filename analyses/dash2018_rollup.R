@@ -244,18 +244,6 @@ dash2018_hr = dash2018_cu_plus %>%
 #Ssc_Avg_Wdth = weighted.mean(Avg_Wdth, Length) if(Off_chnl_Typ == "Ssc")
 
 #-----------------------------
-# plot dash2018_hr for visualization
-#-----------------------------
-# I'll come back to this later; need to resolve facetting to zoom in on each map
-ggplot() +
-  geom_sf(data = dash2018_hr,
-          aes(fill = Hab_Rch)) +
-  facet_wrap(~SiteNam) +
-  labs(title = "MRA Reaches",
-       fill = "Habitat Reaches") +
-  theme_bw()
-
-#-----------------------------
 # calculate sinuosity and braidedness metrics and add to dash2018_hr
 #-----------------------------
 
