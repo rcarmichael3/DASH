@@ -92,7 +92,7 @@ ph_sf = ph_sf %>%
           filter(is.na(Hab_Roll)) %>%
           mutate_at(vars(Off_C_T:sinusty),
                     list(~as.numeric(NA))) %>%
-          mutate(Unt_Typ = "Off Channel",
+          mutate(Unt_Typ = "Lsc",
                  Sgmnt_N = NA,
                  Hab_Roll = replace_na(Hab_Roll, 5)) )
 
@@ -102,6 +102,8 @@ ph_sf = ph_sf %>%
 #-----------------------------
 # merge all sites
 dash2018_cu = rbind(ul_sf, ll_sf, ph_sf, us_sf) %>%
+  group_by(SiteNam) %>%
+  ungroup() %>%
   mutate(Length = ifelse(is.na(Length), SHAPE_L, Length)) %>%
   select(-SHAPE_L, -sinusty, -Nhat, - Density) %>%
   rename(Sgmnt_ID = Sgmnt_N,
@@ -121,21 +123,48 @@ dash2018_cu = rbind(ul_sf, ll_sf, ph_sf, us_sf) %>%
          Undrc_C, Undrc_L, Undrc_A,                          # undercut
          d50, d84, Prc_Fns, Prc_Grv, Prc_Cbb, Prc_Bld,       # substrate
          Notes, everything()) %>%
-  mutate(ID = paste0(str_pad(Sgmnt_ID, 2, pad = "0"), "_", str_pad(CU_ID, 3, pad = "0")),
-         Aq_Veg_Cov = replace_na(Aq_Veg_Cov, 0),
-         Mx_Dpth = ifelse(CU_Typ == "Pool", Mx_Dpth, NA),
-         d50 = ifelse(CU_Typ == "Riffle", d50, NA),
-         d84 = ifelse(CU_Typ == "Riffle", d84, NA),
-         Prc_Fns = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Fns, NA),
-         Prc_Grv = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Grv, NA),
-         Prc_Cbb = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Cbb, NA),
-         Prc_Bld = ifelse(CU_Typ %in% c("Run", "Pool"), Prc_Bld, NA)) %>%
-  mutate(CU_Typ = ifelse(is.na(Off_Chnl_Typ), as.character(CU_Typ),
-                         ifelse(Off_Chnl_Typ == "Ssc", "Ssc",
-                                ifelse(Off_Chnl_Typ == "Oca", "Oca",
-                                       ifelse(Off_Chnl_Typ %in% c("Pool", "Riffle", "Run", "Rapid"), "Lsc", NA))))) %>%
+  mutate_at(vars(Sgmnt_ID),
+            list(str_pad),
+            width = 2,
+            pad = "0") %>%
+  mutate_at(vars(CU_ID),
+            list(str_pad),
+            width = 3,
+            pad = "0") %>%
+  unite(ID, Sgmnt_ID, CU_ID, remove = F) %>%
+  mutate_at(vars(Aq_Veg_Cov),
+            list(replace_na),
+            replace = 0) %>%
+  mutate(Mx_Dpth = ifelse(CU_Typ == "Pool", Mx_Dpth, NA)) %>%
+  mutate_at(vars(d50, d84),
+            list(~ if_else(CU_Typ == "Riffle",
+                           ., as.numeric(NA)))) %>%
+  mutate_at(vars(starts_with('Prc_')),
+            list(~ if_else(CU_Typ %in% c("Run", "Pool"),
+                           ., as.numeric(NA)))) %>%
+  mutate(CU_Typ = if_else(is.na(Off_Chnl_Typ),
+                          as.character(CU_Typ),
+                          if_else(Off_Chnl_Typ %in% c("Ssc", "Oca"),
+                                  as.character(Off_Chnl_Typ),
+                                  if_else(Off_Chnl_Typ %in% c("Pool", "Riffle", "Run", "Rapid"),
+                                          "Lsc", 
+                                          as.character(NA))))) %>%
+  mutate_at(vars(CU_Typ),
+            list(as.factor)) %>%
   arrange(SiteNam, Hab_Rch, ID) %>%
   select(SiteNam, Hab_Rch, ID, everything())
+
+# any channel units missing a CU_Typ?
+dash2018_cu %>%
+  filter(is.na(CU_Typ))
+
+# which channel units have segment ID == 00?
+dash2018_cu %>%
+  filter(Sgmnt_ID == "00")
+
+
+# xtabs(~ CU_Typ, dash2018_cu)
+# xtabs(~ CU_Typ + Off_Chnl_Typ, dash2018_cu)
 
 # clean up some datasets
 # rm(ul_sf, ll_sf, ph_sf, us_sf)
@@ -162,6 +191,46 @@ dash2018_cu_plus = dash2018_cu %>%
   ungroup() %>%
   mutate_at(vars(starts_with("hr_")),
             ~replace(., . %in% c("NaN", "-Inf"), NA))
+
+dash2018_cu_plus2 = dash2018_cu %>%
+  left_join(dash2018_cu %>%
+              group_by(SiteNam, Hab_Rch) %>%
+              summarise(hr_CU_IDs = list(ID),
+                        hr_n_pool = sum(CU_Typ == 'Pool') ,
+                        hr_Pool_A = sum(SHAPE_A[CU_Typ == "Pool"]),
+                        hr_n_SC = n_distinct(Sgmnt_ID[Sgmnt_ID > 1]),
+                        hr_SC_A = sum(SHAPE_A[Sgmnt_ID > 1])) %>%
+              st_drop_geometry() %>%
+              as_tibble()) %>%
+  left_join(dash2018_cu %>%
+              group_by(SiteNam, Hab_Rch) %>%
+              summarise_at(vars(Mx_Dpth),
+                           lst(n_pool = ~ sum(!is.na(.)),
+                               hr_Pool_Mx_Dpth = max, 
+                               hr_Pool_Avg_Mx_Dpth = mean, 
+                               hr_Pool_CV_Mx_Dpth = ~ sd(., na.rm = T) / mean(., na.rm = T)),
+                           na.rm = T) %>%
+              st_drop_geometry() %>%
+              as_tibble()) %>%
+  left_join(dash2018_cu %>%
+              mutate(Tot_Cov = 100 - No_Cov) %>%
+              group_by(SiteNam, Hab_Rch) %>%
+              summarise_at(vars(hr_Tot_Cov = Tot_Cov,
+                                hr_Aq_Veg_Cov = Aq_Veg_Cov,
+                                hr_d50 = d50,
+                                hr_d84 = d84,
+                                hr_Prc_Fns = Prc_Fns,
+                                hr_Prc_Grv = Prc_Grv,
+                                hr_Prc_Cbb = Prc_Cbb,
+                                hr_Prc_Bld = Prc_Bld),
+                           list(~ weighted.mean(., 
+                                                w = SHAPE_A,
+                                                na.rm = T))) %>%
+              st_drop_geometry() %>%
+              as_tibble()) %>%
+  mutate_at(vars(starts_with("hr_")),
+            ~replace(., . %in% c("NaN", "-Inf"), NA))
+
 
 # save channel unit scale data
 save(dash2018_cu, dash2018_cu_plus, file = "data/prepped/dash2018_cus.Rda")
@@ -194,8 +263,12 @@ dash_cu_plot = cowplot::plot_grid(plotlist = dash_cu_plotlist)
 dash_cu_plot
 
 #-----------------------------
-# begin to summarize data using Hab_Roll column
+# begin to summarize data using Hab_Rch column
 #--------------------------
+dash2018_hr = dash2018_cu %>%
+  group_by(SiteNam, Hab_Rch) %>%
+
+
 dash2018_hr = dash2018_cu_plus %>%
   group_by(SiteNam, Hab_Rch) %>%
   summarise(CU_IDs = unique(hr_CU_IDs),
