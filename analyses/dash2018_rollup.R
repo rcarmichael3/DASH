@@ -521,12 +521,14 @@ mra_cl = rbind(ul_cl,
   mutate(Hab_Roll = replace_na(Hab_Roll, 5)) %>%
   select("SiteNam", "Hab_Roll", "sinuosity") %>%
   mutate(Length = as.numeric(st_length(geometry))) %>%
-  mutate(start = st_line_sample(geometry, sample = 0),
-         end = st_line_sample(geometry, sample = 1)) %>%
-  mutate(straight_line = mapply(st_distance, start, end)) %>%
-  select(-start, -end) %>%
+  mutate(straight_line = map_dbl(geometry,
+                                 .f = function(x) {
+                                   st_distance(st_line_sample(x, sample = 0),
+                                               st_line_sample(x, sample = 1))
+                                 })) %>%
   mutate(sinuosity = straight_line / Length) %>%
-  st_drop_geometry() 
+  st_drop_geometry() %>%
+  as_tibble()
 
 # combine the side channels and calculate sc length by Hab_Roll
 mra_sc = ul_sc_sf %>%
@@ -547,13 +549,16 @@ mra_sc = ul_sc_sf %>%
   mutate(Length = as.numeric(st_length(geometry))) %>%
   group_by(SiteNam, Hab_Roll) %>%
   summarise(sc_Length = sum(Length)) %>%
-  st_drop_geometry()
+  st_drop_geometry() %>%
+  as_tibble()
 
 # now calculate some sinuosity and braidedness metrics by Hab_Roll
 hr_sin_wet_braid = mra_cl %>%
   left_join(mra_sc,
             by = c("SiteNam", "Hab_Roll")) %>%
-  mutate_at("sc_Length", replace_na, 0) %>%
+  mutate_at(vars(sc_Length), 
+            list(replace_na), 
+            replace = 0) %>%
   mutate(Tot_Length = Length + sc_Length) %>%
   mutate(wet_braid = Tot_Length / Length) %>%
   mutate(wet_braid_sin = Tot_Length / straight_line) %>%
