@@ -39,57 +39,31 @@ us_sc_sf = st_read('data/raw/dash2018/ShapefilesWith_MetricsV3_reaches_RC/US_Lin
 #-----------------------------
 # clean and merge data into single sf object
 #-----------------------------
-# upper lemhi
-ul_sf = ul_ms_sf %>%
+dash2018_raw = rbind(ul_ms_sf,
+      ll_ms_sf,
+      ph_ms_sf,
+      us_ms_sf %>%
+        rename(Hab_Roll = hr)) %>%
   mutate(Avg_wdt = NA,
          SHAPE_L = NA,
          sinusty = NA) %>%
-  rbind(ul_sc_sf %>%
+  rbind(rbind(ul_sc_sf,
+              ll_sc_sf,
+              ph_sc_sf,
+              us_sc_sf %>%
+                rename(Hab_Roll = hr) %>%
+                mutate(sinusty = NA)) %>%
           mutate(A_Vg_Cv = NA,
-                 Length = NA))
-#rm(ul_ms_sf, ul_sc_sf)        
-
-# lower lemhi  
-ll_sf = ll_ms_sf %>%
-  mutate(Avg_wdt = NA,
-         SHAPE_L = NA,
-         sinusty = NA) %>%
-  rbind(ll_sc_sf %>%
-          mutate(A_Vg_Cv = NA,
-                 Length = NA,
-                 Reach = NA) %>%
-          select(-Reach))
-#rm(ll_ms_sf, ll_sc_sf)
-
-# pahsimeroi
-ph_sf = ph_ms_sf %>%
-  mutate(Avg_wdt = NA,
-         SHAPE_L = NA,
-         sinusty = NA) %>%
-  rbind(ph_sc_sf %>%
-          mutate(A_Vg_Cv = NA,
-                 Length = NA))
-#rm(ph_ms_sf, ph_sc_sf)
-
-# upper salmon  
-us_sf = us_ms_sf %>%
-  mutate(Avg_wdt = NA,
-         SHAPE_L = NA,
-         sinusty = NA) %>%
-  rbind(us_sc_sf %>%
-          mutate(A_Vg_Cv = NA,
-                 Length = NA,
-                 sinusty = NA)) %>%
-  rename(Hab_Roll = hr)
-#rm(us_ms_sf, us_sc_sf)
+                 Length = NA)) %>%
+  group_by(SiteNam) %>%
+  ungroup()
 
 #-----------------------------
 # fix a Lsc in the Pahsimeroi data
-#-----------------------------
-ph_sf = ph_sf %>%
-  drop_na(Hab_Roll) %>%
-  rbind(ph_sf %>%
-          filter(is.na(Hab_Roll)) %>%
+dash2018_raw = dash2018_raw %>%
+  filter(!(SiteNam == 'Pahsimeroi_2018' & is.na(Hab_Roll))) %>%
+  rbind(dash2018_raw %>%
+          filter(SiteNam == 'Pahsimeroi_2018' & is.na(Hab_Roll)) %>%
           mutate_at(vars(Off_C_T:sinusty),
                     list(~as.numeric(NA))) %>%
           mutate(Unt_Typ = "Lsc",
@@ -99,32 +73,119 @@ ph_sf = ph_sf %>%
 #-----------------------------
 # fix a couple channel units with wrong segment number
 # looks like these channel units did not have Survey123 data for some reason
-#-----------------------------
-# upper Lemhi unit 151 should be dropped
-ul_sf %<>%
-  filter(Sgmnt_N != 0)
 
-ph_sf <- ph_sf %>%
-  filter(Sgmnt_N != 0) %>%
-  rbind(ph_sf %>%
-          filter(Sgmnt_N == 0) %>%
-          mutate(Sgmnt_N = 1,
-                 Unt_Typ = 'Pool',
-                 Prc_Fns = 90,
-                 Prc_Grv = 10,
-                 Mx_Dpth = 1.32) %>%
-          mutate_at(vars(starts_with('Undrc_')),
-                    list(~ as.numeric(0)))) %>%
-  arrange(Sgmnt_N, Unt_Nmb)
+# upper Lemhi unit 151 should be dropped
+dash2018_raw %<>%
+  filter(!(SiteNam == 'UpperLemhi_2018' & Unt_Nmb == 151))
+
+# fix some data from unit 74 in Pahsimeroi
+dash2018_raw <- dash2018_raw %>%
+  filter(SiteNam == "Pahsimeroi_2018" & Unt_Nmb == 74) %>%
+  mutate(Sgmnt_N = 1,
+         Unt_Typ = 'Pool',
+         Prc_Fns = 90,
+         Prc_Grv = 10,
+         Mx_Dpth = 1.32) %>%
+  mutate_at(vars(starts_with('Undrc_')),
+            list(~ as.numeric(0))) %>%
+  rbind(dash2018_raw %>%
+          filter(!(SiteNam == "Pahsimeroi_2018" & Unt_Nmb == 74))) %>%
+  arrange(SiteNam, Sgmnt_N, Unt_Nmb)
+
+#-----------------------------
+# older code
+#-----------------------------
+# # upper lemhi
+# ul_sf = ul_ms_sf %>%
+#   mutate(Avg_wdt = NA,
+#          SHAPE_L = NA,
+#          sinusty = NA) %>%
+#   rbind(ul_sc_sf %>%
+#           mutate(A_Vg_Cv = NA,
+#                  Length = NA))
+# #rm(ul_ms_sf, ul_sc_sf)        
+# 
+# # lower lemhi  
+# ll_sf = ll_ms_sf %>%
+#   mutate(Avg_wdt = NA,
+#          SHAPE_L = NA,
+#          sinusty = NA) %>%
+#   rbind(ll_sc_sf %>%
+#           mutate(A_Vg_Cv = NA,
+#                  Length = NA,
+#                  Reach = NA) %>%
+#           select(-Reach))
+# #rm(ll_ms_sf, ll_sc_sf)
+# 
+# # pahsimeroi
+# ph_sf = ph_ms_sf %>%
+#   mutate(Avg_wdt = NA,
+#          SHAPE_L = NA,
+#          sinusty = NA) %>%
+#   rbind(ph_sc_sf %>%
+#           mutate(A_Vg_Cv = NA,
+#                  Length = NA))
+# #rm(ph_ms_sf, ph_sc_sf)
+# 
+# # upper salmon  
+# us_sf = us_ms_sf %>%
+#   mutate(Avg_wdt = NA,
+#          SHAPE_L = NA,
+#          sinusty = NA) %>%
+#   rbind(us_sc_sf %>%
+#           mutate(A_Vg_Cv = NA,
+#                  Length = NA,
+#                  sinusty = NA)) %>%
+#   rename(Hab_Roll = hr)
+# #rm(us_ms_sf, us_sc_sf)
+
+#-----------------------------
+# fix a Lsc in the Pahsimeroi data
+#-----------------------------
+# ph_sf = ph_sf %>%
+#   drop_na(Hab_Roll) %>%
+#   rbind(ph_sf %>%
+#           filter(is.na(Hab_Roll)) %>%
+#           mutate_at(vars(Off_C_T:sinusty),
+#                     list(~as.numeric(NA))) %>%
+#           mutate(Unt_Typ = "Lsc",
+#                  Sgmnt_N = NA,
+#                  Hab_Roll = replace_na(Hab_Roll, 5)) )
+
+#-----------------------------
+# fix a couple channel units with wrong segment number
+# looks like these channel units did not have Survey123 data for some reason
+#-----------------------------
+# # upper Lemhi unit 151 should be dropped
+# ul_sf %<>%
+#   filter(Sgmnt_N != 0)
+# 
+# ph_sf <- ph_sf %>%
+#   filter(Sgmnt_N != 0) %>%
+#   rbind(ph_sf %>%
+#           filter(Sgmnt_N == 0) %>%
+#           mutate(Sgmnt_N = 1,
+#                  Unt_Typ = 'Pool',
+#                  Prc_Fns = 90,
+#                  Prc_Grv = 10,
+#                  Mx_Dpth = 1.32) %>%
+#           mutate_at(vars(starts_with('Undrc_')),
+#                     list(~ as.numeric(0)))) %>%
+#   arrange(Sgmnt_N, Unt_Nmb)
+
+# # put it all together
+# dash2018_raw = rbind(ul_sf,
+#                      ll_sf,
+#                      ph_sf,
+#                      us_sf)
 
 #-----------------------------
 # merge data together and do some cleaning
 #-----------------------------
 # merge all sites
-dash2018_cu = rbind(ul_sf, ll_sf, ph_sf, us_sf) %>%
-  group_by(SiteNam) %>%
-  ungroup() %>%
+dash2018_cu = dash2018_raw %>%
   mutate(Length = ifelse(is.na(Length), SHAPE_L, Length)) %>%
+  # added this calculation directly, for every channel unit
   mutate(Tot_Cov = 100 - No_Cov) %>%
   select(-SHAPE_L, -sinusty, -Nhat, - Density) %>%
   rename(Sgmnt_ID = Sgmnt_N,
@@ -139,7 +200,7 @@ dash2018_cu = rbind(ul_sf, ll_sf, ph_sf, us_sf) %>%
   select(SiteNam, Sgmnt_ID, CU_ID, Hab_Rch, 
          Fish_Rch, CU_Typ, Off_Chnl_Typ, Glbl_ID,            # site & unit info
          Length, SHAPE_A, Mx_Dpth, Avg_Wdth,                 # size
-         Tot_Cov, No_Cov, Aq_Veg_Cov,                                  # cover
+         Tot_Cov, No_Cov, Aq_Veg_Cov,                        # cover
          Wod_Cnt, N_Bllst, N_ChFrm, N_Wet, Wod_Vlm, Jam_Vlm, # wood
          Undrc_C, Undrc_L, Undrc_A,                          # undercut
          d50, d84, Prc_Fns, Prc_Grv, Prc_Cbb, Prc_Bld,       # substrate
@@ -163,7 +224,8 @@ dash2018_cu = rbind(ul_sf, ll_sf, ph_sf, us_sf) %>%
   mutate_at(vars(starts_with('Prc_')),
             list(~ if_else(CU_Typ %in% c("Run", "Pool"),
                            ., as.numeric(NA)))) %>%
-  mutate(CU_Typ = if_else(is.na(Off_Chnl_Typ),
+  mutate(CU_Typ = as.character(CU_Typ),
+         CU_Typ = if_else(is.na(Off_Chnl_Typ),
                           as.character(CU_Typ),
                           if_else(Off_Chnl_Typ %in% c("Ssc", "Oca"),
                                   as.character(Off_Chnl_Typ),
@@ -185,8 +247,13 @@ dash2018_cu %>%
 dash2018_cu %>%
   filter(Sgmnt_ID == "00")
 
-# xtabs(~ CU_Typ, dash2018_cu)
+xtabs(~ is.na(CU_Typ), dash2018_cu)
+xtabs(~ CU_Typ, dash2018_cu)
 xtabs(~ CU_Typ + is.na(Off_Chnl_Typ), dash2018_cu)
+
+dash2018_cu %>%
+  filter(CU_Typ == 'Lsc',
+         is.na(Off_Chnl_Typ))
 
 # clean up some datasets
 # rm(ul_sf, ll_sf, ph_sf, us_sf)
@@ -214,11 +281,12 @@ dash2018_cu_plus = dash2018_cu %>%
   mutate_at(vars(starts_with("hr_")),
             ~replace(., . %in% c("NaN", "-Inf"), NA))
 
+# another way to do it, separating out metrics that are calculated similarly
 dash2018_cu_plus2 = dash2018_cu %>%
   left_join(dash2018_cu %>%
               group_by(SiteNam, Hab_Rch) %>%
               summarise(hr_CU_IDs = list(ID),
-                        hr_n_pool = sum(CU_Typ == 'Pool') ,
+                        hr_n_pool = sum(CU_Typ == 'Pool'),
                         hr_Pool_A = sum(SHAPE_A[CU_Typ == "Pool"]),
                         hr_n_SC = n_distinct(Sgmnt_ID[Sgmnt_ID > 1]),
                         hr_SC_A = sum(SHAPE_A[Sgmnt_ID > 1])) %>%
@@ -235,7 +303,6 @@ dash2018_cu_plus2 = dash2018_cu %>%
               st_drop_geometry() %>%
               as_tibble()) %>%
   left_join(dash2018_cu %>%
-              mutate(Tot_Cov = 100 - No_Cov) %>%
               group_by(SiteNam, Hab_Rch) %>%
               summarise_at(vars(hr_Tot_Cov = Tot_Cov,
                                 hr_Aq_Veg_Cov = Aq_Veg_Cov,
@@ -375,6 +442,7 @@ dash2018_hr2 = dash2018_cu %>%
             Pool_Mx_Dpth = max(Mx_Dpth, na.rm = T),
             Pool_Avg_Mx_Dpth = mean(Mx_Dpth, na.rm = T),
             Pool_CV_Mx_Dpth = sd(Mx_Dpth, na.rm = T) / Pool_Avg_Mx_Dpth) %>%
+  # not sure why this needs to be a left join, but when I ty to include all these with the code above it doesn't work
   left_join(dash2018_cu %>%
               st_drop_geometry() %>%
               group_by(SiteNam, Hab_Rch) %>%
@@ -453,7 +521,6 @@ dash2018_hr3 = dash2018_cu %>%
               st_drop_geometry() %>%
               as_tibble()) %>%
   left_join(dash2018_cu %>%
-              # mutate(Tot_Cov = 100 - No_Cov) %>%
               group_by(SiteNam, Hab_Rch) %>%
               summarise_at(vars(Tot_Cov = Tot_Cov,
                                 Aq_Veg_Cov = Aq_Veg_Cov,
