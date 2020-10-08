@@ -16,7 +16,7 @@ undercutMetrics = function(input = NULL)
   # calculate undercut metrics
   udcut_tbl = clean_names(udcut_tbl, case = "lower_camel") %>%
     select(lengthM, width25PercentM, width50PercentM, width75PercentM, parentGlobalId) %>%
-    mutate(undercutArea = lengthM * ((width25PercentM*width50PercentM*width75PercentM)/3)) %>%
+    mutate(undercutArea = lengthM * ((width25PercentM+width50PercentM+width75PercentM)/3)) %>%
     group_by(parentGlobalId) %>%
     mutate(undercutLength = sum(lengthM),
            nUndercuts = length(parentGlobalId),
